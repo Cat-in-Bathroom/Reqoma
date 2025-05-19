@@ -1,0 +1,18 @@
+# Ignore config and credentials
+config.php
+.env
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore node_modules or vendor directories
+node_modules/
+vendor/
+
+# Ignore IDE/project files
+.vscode/
+.idea/
