@@ -17,9 +17,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time(); ?>">
 
 </head>
-<body class="d-flex flex-column min-vh-100">
-  <main class="flex-grow-1 container py-5">
-    
+<body>
+  <main>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">MathHub</a>
