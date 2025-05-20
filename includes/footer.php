@@ -4,17 +4,17 @@
   <div class="container text-center">
     <div class="mb-2">
       <!-- Replace these links with your actual social profiles -->
-      <a href="https://twitter.com/yourhandle" target="_blank" class="text-light me-3" aria-label="Twitter">
-        <i class="bi bi-twitter"></i> Twitter
+      <a href="https://discord.gg/SHqa3SxGHt" target="_blank" class="text-light me-3" aria-label="Discord">
+        <i class="bi bi-discord"></i> Discord
       </a>
-      <a href="https://github.com/yourhandle" target="_blank" class="text-light me-3" aria-label="GitHub">
+      <a href="https://github.com/Cat-in-Bathroom/Reqoma" target="_blank" class="text-light me-3" aria-label="GitHub">
         <i class="bi bi-github"></i> GitHub
       </a>
-      <a href="https://linkedin.com/in/yourhandle" target="_blank" class="text-light" aria-label="LinkedIn">
-        <i class="bi bi-linkedin"></i> LinkedIn
+      <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light" aria-label="Patreon">
+        <i class="bi bi-patreon"></i> Patreon
       </a>
     </div>
-    <small>&copy; 2025 Your Name. Built with ❤️</small>
+    <small>&copy; 2025 CAT. Built with ChatGPT</small>
   </div>
 </footer>
 
