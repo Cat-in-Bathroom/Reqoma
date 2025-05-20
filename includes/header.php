@@ -14,6 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+<main class="container flex-grow-1">
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
