@@ -12,7 +12,7 @@
       </a>
       <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light text-decoration-none" aria-label="Patreon">
         <img 
-          src="<?= $base ?>/assets/images/PATREON_SYMBOL_1_WHITE_RGB.png" 
+          src="../assets/images/PATREON_SYMBOL_1_WHITE_RGB.png" 
           alt="Patreon Logo" 
           width="20" 
           height="20" 
