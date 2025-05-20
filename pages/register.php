@@ -1,4 +1,7 @@
 <?php
+
+require_once '../includes/config.php';
+
 session_start();
 
 $errors = [];
@@ -6,36 +9,27 @@ $username = '';
 $email = '';
 
 // Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm = $_POST['confirm'] ?? '';
 
-    // Basic validation
-    if ($username === '') {
-        $errors[] = 'Username is required.';
-    }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Valid email is required.';
-    }
-    if (strlen($password) < 6) {
-        $errors[] = 'Password must be at least 6 characters.';
-    }
-    if ($password !== $confirm) {
-        $errors[] = 'Passwords do not match.';
-    }
+require_once '../includes/config.php';  // This gives you $pdo
 
-    if (empty($errors)) {
-        // Placeholder for saving user
-        $_SESSION['user'] = [
-            'username' => $username,
-            'email' => $email
-        ];
-        header('Location: dashboard.php');
-        exit;
-    }
-}
+// Example user data from form (validate and sanitize this in real use!)
+$username = 'exampleUser';
+$email = 'user@example.com';
+$password = password_hash('userpassword', PASSWORD_DEFAULT); // Always hash passwords!
+
+// Prepare an insert statement
+$sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
+$stmt = $pdo->prepare($sql);
+
+// Bind values and execute
+$stmt->execute([
+    ':username' => $username,
+    ':email' => $email,
+    ':password' => $password,
+]);
+
+echo "User registered successfully!";
+
 ?>
 
 <!DOCTYPE html>
