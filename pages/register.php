@@ -8,7 +8,7 @@ $email = '';
 
 // Handle form submission
 
-require_once '../includes/config.php';  // This gives you $pdo
+require_once '/Reqoma/includes/config.php';  // This gives you $pdo
 
 // Example user data from form (validate and sanitize this in real use!)
 $username = 'exampleUser';
