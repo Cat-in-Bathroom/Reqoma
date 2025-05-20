@@ -2,6 +2,7 @@
 session_start();
 $isLoggedIn = isset($_SESSION['user']);
 ?>
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,3 +58,4 @@ $isLoggedIn = isset($_SESSION['user']);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php include 'footer.php'; ?>
