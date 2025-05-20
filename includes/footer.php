@@ -10,12 +10,18 @@
       <a href="https://github.com/Cat-in-Bathroom/Reqoma" target="_blank" class="text-light me-3" aria-label="GitHub">
         <i class="bi bi-github"></i> GitHub
       </a>
-        <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light" aria-label="Patreon">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111505.png" alt="Patreon" width="20" style="vertical-align: middle; margin-right: 6px;">
-            Support me on Patreon
-        </a>
+      <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light text-decoration-none" aria-label="Patreon">
+        <img 
+          src="../assets/pictures/PATREON_SYMBOL_1_WHITE_RGB.png" 
+          alt="Patreon Logo" 
+          width="20" 
+          height="20" 
+          style="vertical-align: middle; margin-right: 6px;"
+        />
+        Support me on Patreon
+      </a>
     </div>
-    <small>&copy; 2025 CAT. Built with ChatGPT</small>
+    <small>&copy; 2025 Cat in Bathroom. Built with ChatGPT</small>
   </div>
 </footer>
 
