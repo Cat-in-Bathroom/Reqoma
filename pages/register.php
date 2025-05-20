@@ -1,33 +1,62 @@
 <?php
-
 session_start();
+require_once __DIR__ . '/../includes/config.php';
 
 $errors = [];
 $username = '';
 $email = '';
 
-// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Grab and sanitize inputs
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $confirm = $_POST['confirm'] ?? '';
 
-require_once '/Reqoma/includes/config.php';  // This gives you $pdo
+    // Basic validation
+    if (strlen($username) < 3) {
+        $errors[] = "Username must be at least 3 characters.";
+    }
 
-// Example user data from form (validate and sanitize this in real use!)
-$username = 'exampleUser';
-$email = 'user@example.com';
-$password = password_hash('userpassword', PASSWORD_DEFAULT); // Always hash passwords!
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email address.";
+    }
 
-// Prepare an insert statement
-$sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
-$stmt = $pdo->prepare($sql);
+    if (strlen($password) < 6) {
+        $errors[] = "Password must be at least 6 characters.";
+    }
 
-// Bind values and execute
-$stmt->execute([
-    ':username' => $username,
-    ':email' => $email,
-    ':password' => $password,
-]);
+    if ($password !== $confirm) {
+        $errors[] = "Passwords do not match.";
+    }
 
-echo "User registered successfully!";
+    // Check if email or username already exists
+    if (empty($errors)) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE username = :username OR email = :email");
+        $stmt->execute([':username' => $username, ':email' => $email]);
 
+        if ($stmt->fetch()) {
+            $errors[] = "Username or email already taken.";
+        }
+    }
+
+    // Insert user
+    if (empty($errors)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+        $stmt->execute([
+            ':username' => $username,
+            ':email' => $email,
+            ':password' => $hashedPassword
+        ]);
+
+        // Redirect or notify success
+        $_SESSION['success'] = "Account created! You can now log in.";
+        header("Location: login.php");
+        exit;
+    }
+}
 ?>
 
 <!DOCTYPE html>
