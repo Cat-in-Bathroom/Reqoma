@@ -1,37 +1,21 @@
 </main>
 
-<footer class="bg-dark fixed-bottom text-light py-4 mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Company</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/about" class="text-light">About</a></li>
-                    <li><a href="/blog" class="text-light">Blog</a></li>
-                    <li><a href="/press" class="text-light">Press</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Support</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/help" class="text-light">Help Center</a></li>
-                    <li><a href="/contact" class="text-light">Contact</a></li>
-                    <li><a href="/faq" class="text-light">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Legal</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/terms" class="text-light">Terms</a></li>
-                    <li><a href="/privacy" class="text-light">Privacy</a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="border-light">
-        <div class="text-center">
-            <small>&copy; 2025 Company Name. Built with ❤️</small>
-        </div>
+<footer class="bg-dark fixed-bottom text-light py-3">
+  <div class="container text-center">
+    <div class="mb-2">
+      <!-- Replace these links with your actual social profiles -->
+      <a href="https://twitter.com/yourhandle" target="_blank" class="text-light me-3" aria-label="Twitter">
+        <i class="bi bi-twitter"></i> Twitter
+      </a>
+      <a href="https://github.com/yourhandle" target="_blank" class="text-light me-3" aria-label="GitHub">
+        <i class="bi bi-github"></i> GitHub
+      </a>
+      <a href="https://linkedin.com/in/yourhandle" target="_blank" class="text-light" aria-label="LinkedIn">
+        <i class="bi bi-linkedin"></i> LinkedIn
+      </a>
     </div>
+    <small>&copy; 2025 Your Name. Built with ❤️</small>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
