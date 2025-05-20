@@ -1,8 +1,4 @@
-<?php
-session_start();
-$isLoggedIn = isset($_SESSION['user']);
-?>
-
+<?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
