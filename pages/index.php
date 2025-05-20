@@ -46,5 +46,4 @@ $isLoggedIn = isset($_SESSION['user']);
     <?php endif; ?>
 </div>
 
-
 <?php include '../includes/footer.php'; ?>
