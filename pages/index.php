@@ -5,7 +5,6 @@ $isLoggedIn = isset($_SESSION['user']);
 
 <?php include '../includes/header.php'; ?>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">MathHub</a>
