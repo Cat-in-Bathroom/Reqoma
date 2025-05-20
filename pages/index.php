@@ -1,5 +1,7 @@
-<?php include '../includes/auth.php'; ?>
-<?php include '../includes/header.php'; ?>
+<?php $base = '/Reqoma'; ?>
+
+<?php include '<?= $base ?>/includes/auth.php'; ?>
+<?php include '<?= $base ?>/includes/header.php'; ?>
 
 
 
@@ -14,4 +16,4 @@
     <?php endif; ?>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '<?= $base ?>/includes/footer.php'; ?>
