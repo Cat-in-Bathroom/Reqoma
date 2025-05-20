@@ -15,11 +15,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- Your Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time(); ?>">
-    
-</head>
-<body class="bg-light">
-<main class="container flex-grow-1">
 
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1 container py-5">
+    
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">MathHub</a>
