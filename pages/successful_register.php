@@ -4,12 +4,11 @@
 <?php
 
 // Optional: Check if user just registered
-if (!isset($_SESSION['registered']) || $_SESSION['registered'] !== true) {
-    // Redirect to registration page if not coming from there
+session_start();
+if (!isset($_SESSION['registered'])) {
     header("Location: register.php");
-    exit();
+    exit;
 }
-
 // Optional: Unset the registered flag
 unset($_SESSION['registered']);
 ?>

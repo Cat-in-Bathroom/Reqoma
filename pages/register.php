@@ -7,6 +7,10 @@
 
 require_once __DIR__ . '../includes/config.php';
 
+$_SESSION['registered'] = true;
+header("Location: successful_register.php");
+exit;
+
 $errors = [];
 $username = '';
 $email = '';
@@ -98,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="confirm" class="form-control" id="confirm" required>
       </div>
 
-      <button type="submit" formaction="<?= $base_url ?>successful_register.php" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary">Register</button>
       <a href="<?= $base_url ?>login.php" class="btn btn-link">Already have an account?</a>
     </form>
   </div>
