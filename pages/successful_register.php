@@ -1,5 +1,6 @@
 <?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
+
 <?php
 
 // Start the session if not already started
