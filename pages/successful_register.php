@@ -20,17 +20,16 @@ unset($_SESSION['registered']);
         body {
             font-family: Arial, sans-serif;
             background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
+
         .success-box {
             background: white;
             padding: 30px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 80px auto;
         }
         .success-box h1 {
             color: #4CAF50;
