@@ -16,7 +16,7 @@
 
 <div class="mt-4 text-center">
     <button id="shareBtn" class="btn btn-secondary">
-        <i class="bi bi-share"></i> Share this site
+        <i class="bi bi-share"></i> Share Reqoma with your Friends
     </button>
 </div>
 
