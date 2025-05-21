@@ -1,10 +1,11 @@
 <?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
 
+<?php $base_url = '/Reqoma/pages/'; ?>
 
 <?php
 
-require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '../includes/config.php';
 
 $errors = [];
 $username = '';
@@ -73,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-light">
 
-  <?php $base_url = '/Reqoma/pages/'; ?>
+  
 
   <div class="container py-5">
     <h2 class="mb-4">Create an Account</h2>
