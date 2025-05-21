@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
             <a class="nav-link" href="profile.php">My Profile</a>
           </li>
           <li class="nav-item mb-2">
-            <a class="nav-link" href="page2.php">Page 2</a>
+            <a class="nav-link" href="settings.php">Setting</a>
           </li>
           <li class="nav-item mb-2">
             <a class="nav-link" href="page3.php">Page 3</a>
