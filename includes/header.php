@@ -38,7 +38,9 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
             <ul class="navbar-nav">
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Welcome, <?= htmlspecialchars($_SESSION['username']) ?></a>
+                        <a class="nav-link" href="<?= $base_url ?>profile.php">
+                            Welcome, <?= htmlspecialchars($_SESSION['username']) ?>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $base_url ?>logout.php">Logout</a>
