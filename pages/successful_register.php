@@ -3,11 +3,6 @@
 
 <?php
 
-// Start the session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Optional: Check if user just registered
 if (!isset($_SESSION['registered']) || $_SESSION['registered'] !== true) {
     // Redirect to registration page if not coming from there
