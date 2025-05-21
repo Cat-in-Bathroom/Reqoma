@@ -29,23 +29,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- Simple Login Form -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-<h2>Login</h2>
-<?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-<form method="POST" action="">
-    <label>Username:</label>
-    <input type="text" name="username" required><br><br>
-    <label>Password:</label>
-    <input type="password" name="password" required><br><br>
-    <button type="submit">Login</button>
-</form>
-</body>
-</html>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Login</h3>
+                    <?php if (!empty($error)): ?>
+                        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+                    <?php endif; ?>
+                    <form method="POST" action="">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include '../includes/footer.php'; ?>
