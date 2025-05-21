@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 }
 ?>
 
+<?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
 
 <div class="container mt-5">

@@ -14,4 +14,26 @@
     <?php endif; ?>
 </div>
 
+<div class="mt-4 text-center">
+    <button id="shareBtn" class="btn btn-secondary">
+        <i class="bi bi-share"></i> Share this site
+    </button>
+</div>
+
+<script>
+document.getElementById('shareBtn').onclick = function() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Math Formula Hub',
+            text: 'Check out Math Formula Hub!',
+            url: window.location.origin + '/Reqoma/pages/index.php'
+        });
+    } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(window.location.origin + '/Reqoma/pages/index.php');
+        alert('Link copied to clipboard!');
+    }
+};
+</script>
+
 <?php include '../includes/footer.php'; ?>
