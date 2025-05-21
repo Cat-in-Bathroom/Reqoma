@@ -4,7 +4,7 @@
 <?php $base_url = '/Reqoma/pages/'; ?>
 
 <div class="container py-5 text-center">
-    <h1 class="mb-3">Welcome to Math Formula Hub</h1>
+    <h1 class="mb-3">Welcome to Reqoma</h1>
     <p class="lead">Explore, create, and solve mathematical formulas — categorized, rated, and moderated.</p>
     <?php if (!$isLoggedIn): ?>
         <a href="<?= $base_url ?>login.php" class="btn btn-outline-primary btn-lg me-2">Login</a>
