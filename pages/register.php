@@ -74,8 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-light">
 
-  
-
   <div class="container py-5">
     <h2 class="mb-4">Create an Account</h2>
 
