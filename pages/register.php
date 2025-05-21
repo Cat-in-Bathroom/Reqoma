@@ -72,6 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+
+  <?php $base_url = '/Reqoma/pages/'; ?>
+
   <div class="container py-5">
     <h2 class="mb-4">Create an Account</h2>
 
@@ -107,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <button type="submit" class="btn btn-primary">Register</button>
-      <a href="login.php" class="btn btn-link">Already have an account?</a>
+      <a href="<?= $base_url ?>login.php" class="btn btn-link">Already have an account?</a>
     </form>
   </div>
 
