@@ -43,7 +43,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
         <h4 class="text-white mb-4">Dashboard</h4>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
-            <a class="nav-link" href="page1.php">Page 1</a>
+            <a class="nav-link" href="profile.php">My Profile</a>
           </li>
           <li class="nav-item mb-2">
             <a class="nav-link" href="page2.php">Page 2</a>
