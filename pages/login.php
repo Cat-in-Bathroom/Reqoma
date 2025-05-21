@@ -1,39 +1,21 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/config.php';
 
-// Database connection
-$host = "localhost";
-$user = "your_db_user";
-$password = "your_db_password";
-$database = "your_db_name";
+$error = '';
 
-$conn = new mysqli($host, $user, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Prevent SQL injection
-    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
+    $stmt = $pdo->prepare("SELECT id, username, password_hash FROM users WHERE username = :username");
+    $stmt->execute([':username' => $username]);
+    $user = $stmt->fetch();
 
-    // Check if user exists
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $user, $hashed_password);
-        $stmt->fetch();
-
-        // Verify password
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION['user_id'] = $id;
-            $_SESSION['username'] = $user;
+    if ($user) {
+        if (password_verify($password, $user['password_hash'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
             header("Location: dashboard.php");
             exit();
         } else {
@@ -42,11 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error = "No user found.";
     }
-
-    $stmt->close();
 }
-
-$conn->close();
 ?>
 
 <!-- Simple Login Form -->
