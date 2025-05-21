@@ -13,8 +13,6 @@ if (!isset($_SESSION['registered'])) {
 unset($_SESSION['registered']);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Registration Successful</title>
@@ -58,6 +56,6 @@ unset($_SESSION['registered']);
         <a href="login.php">Go to Login</a>
     </div>
 </body>
-</html>
+
 
 <?php include '../includes/footer.php'; ?>
