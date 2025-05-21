@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="confirm" class="form-control" id="confirm" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" href="<?= $base_url ?>successful_register.php" class="btn btn-primary">Register</button>
       <a href="<?= $base_url ?>login.php" class="btn btn-link">Already have an account?</a>
     </form>
   </div>
