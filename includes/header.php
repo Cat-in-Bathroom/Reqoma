@@ -28,7 +28,7 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">Reqoma</a>
+        <a class="navbar-brand" href="<?= $isLoggedIn ? $base_url . 'dashboard.php' : $base_url . 'index.php' ?>">Reqoma</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
