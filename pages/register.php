@@ -5,10 +5,6 @@
 
 require_once __DIR__ . '../includes/config.php';
 
-$_SESSION['registered'] = true;
-header("Location: successful_register.php");
-exit;
-
 $errors = [];
 $username = '';
 $email = '';
@@ -59,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         // Redirect or notify success
-        $_SESSION['success'] = "Account created! You can now log in.";
-        header("Location: login.php");
+        $_SESSION['registered'] = true;
+        header("Location: successful_register.php");
         exit;
     }
 }
