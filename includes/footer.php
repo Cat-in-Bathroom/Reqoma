@@ -10,23 +10,25 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
 <footer class="bg-dark fixed-bottom text-light py-3">
   <div class="container text-center">
     <div class="mb-2 d-flex justify-content-center align-items-center">
-      <!-- Social links -->
-      <div>
-        <a href="https://discord.gg/SHqa3SxGHt" target="_blank" class="text-light me-3" aria-label="Discord">
-          <i class="bi bi-discord"></i> Discord
-        </a>
-        <a href="https://github.com/Cat-in-Bathroom/Reqoma" target="_blank" class="text-light me-3" aria-label="GitHub">
-          <i class="bi bi-github"></i> GitHub
-        </a>
-        <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light me-3" aria-label="Patreon">
-          <i class="bi bi-patreon"></i> Patreon
-        </a>
+      <!-- Social links and share button in a flex row -->
+      <div class="d-flex align-items-center">
+        <div>
+          <a href="https://discord.gg/SHqa3SxGHt" target="_blank" class="text-light me-3" aria-label="Discord">
+            <i class="bi bi-discord"></i> Discord
+          </a>
+          <a href="https://github.com/Cat-in-Bathroom/Reqoma" target="_blank" class="text-light me-3" aria-label="GitHub">
+            <i class="bi bi-github"></i> GitHub
+          </a>
+          <a href="https://www.patreon.com/c/Cat_in_Bathroom889" target="_blank" class="text-light me-3" aria-label="Patreon">
+            <i class="bi bi-patreon"></i> Patreon
+          </a>
+        </div>
+        <?php if ($isLoggedIn): ?>
+          <button id="shareBtn" class="btn btn-secondary ms-4">
+            <i class="bi bi-share"></i> Share Reqoma
+          </button>
+        <?php endif; ?>
       </div>
-      <?php if ($isLoggedIn): ?>
-        <button id="shareBtn" class="btn btn-secondary ms-3">
-          <i class="bi bi-share"></i> Share Reqoma
-        </button>
-      <?php endif; ?>
     </div>
     <small>&copy; 2025 Cat in Bathroom. Built with ChatGPT</small>
   </div>

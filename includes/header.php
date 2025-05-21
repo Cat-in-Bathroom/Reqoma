@@ -43,6 +43,11 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= $base_url ?>leaderboard.php">
+                            <i class="bi bi-trophy"></i> Leaderboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="btn btn-danger ms-2" href="<?= $base_url ?>logout.php" style="color:white;">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </a>
