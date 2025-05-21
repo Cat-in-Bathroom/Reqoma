@@ -1,10 +1,11 @@
 <?php
 
-// Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <ul class="navbar-nav">
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Welcome, <?= htmlspecialchars($_SESSION['user']['username']) ?></a>
+                        <a class="nav-link" href="#">Welcome, <?= htmlspecialchars($_SESSION['username']) ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $base_url ?>logout.php">Logout</a>

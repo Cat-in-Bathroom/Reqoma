@@ -1,6 +1,7 @@
 <?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
 <?php
+
 session_start();
 require_once __DIR__ . '/../includes/config.php';
 
@@ -18,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password_hash'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            // Optionally:
+            // $_SESSION['user'] = ['username' => $user['username']];
             header("Location: dashboard.php");
             exit();
         } else {
