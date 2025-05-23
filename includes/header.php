@@ -26,7 +26,8 @@ if ($isLoggedIn) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Your Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time(); ?>">
-
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
   <main>

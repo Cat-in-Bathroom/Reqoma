@@ -98,13 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="difficulty" id="difficultyInput" value="<?= htmlspecialchars($user_difficulty) ?>">
         </div>
         <div class="mb-3">
-            <label class="form-label">Tags</label><br>
-            <?php foreach ($all_tags as $tag): ?>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag-<?= $tag['id'] ?>">
-                    <label class="form-check-label" for="tag-<?= $tag['id'] ?>"><?= htmlspecialchars($tag['name']) ?></label>
-                </div>
-            <?php endforeach; ?>
+            <label class="form-label">Tags</label>
+            <select class="form-select" id="tags" name="tags[]" multiple="multiple" style="width:100%">
+                <?php foreach ($all_tags as $tag): ?>
+                    <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="calculator_used" name="calculator_used" value="1">
@@ -114,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 const baseDiff = parseFloat(document.getElementById('baseDiff').textContent);
 const slider = document.getElementById('diffMultiplier');
@@ -127,6 +127,13 @@ slider.addEventListener('input', function() {
     multiplierValue.textContent = multiplier.toFixed(2);
     resultDiff.textContent = calculated;
     difficultyInput.value = calculated;
+});
+
+$(document).ready(function() {
+    $('#tags').select2({
+        placeholder: "Select tags",
+        allowClear: true
+    });
 });
 </script>
 
