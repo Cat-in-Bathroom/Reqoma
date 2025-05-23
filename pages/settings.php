@@ -9,6 +9,7 @@ require_once __DIR__ . '/../includes/config.php';
 
 $user_id = $_SESSION['user_id'];
 $message = "";
+$error = "";
 
 // Fetch current user data
 $stmt = $pdo->prepare("SELECT username, email, profile_picture FROM users WHERE id = :id");
@@ -41,21 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Update user in DB
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email, profile_picture = :profile_picture WHERE id = :id");
-    $stmt->execute([
-        ':username' => $new_username,
-        ':email' => $new_email,
-        ':profile_picture' => $profile_picture,
-        ':id' => $user_id
-    ]);
+    // Only update if there are no errors
+    if (empty($error)) {
+        $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email, profile_picture = :profile_picture WHERE id = :id");
+        $stmt->execute([
+            ':username' => $new_username,
+            ':email' => $new_email,
+            ':profile_picture' => $profile_picture,
+            ':id' => $user_id
+        ]);
 
-    $_SESSION['username'] = $new_username;
-    $message = "Profile updated successfully!";
-    // Refresh user data
-    $user['username'] = $new_username;
-    $user['email'] = $new_email;
-    $user['profile_picture'] = $profile_picture;
+        $_SESSION['username'] = $new_username;
+        $message = "Profile updated successfully!";
+        // Refresh user data
+        $user['username'] = $new_username;
+        $user['email'] = $new_email;
+        $user['profile_picture'] = $profile_picture;
+    }
 }
 ?>
 
@@ -65,6 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Account Settings</h1>
     <?php if ($message): ?>
         <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+    <?php endif; ?>
+    <?php if (!empty($error)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
     <form method="post" enctype="multipart/form-data">
         <div class="mb-3">
