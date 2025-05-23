@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 require_once __DIR__ . '/../includes/config.php';
 
 // Fetch user data from DB
-$stmt = $pdo->prepare("SELECT username, email, profile_picture FROM users WHERE id = :id");
+$stmt = $pdo->prepare("SELECT username, display_name, email, profile_picture FROM users WHERE id = :id");
 $stmt->execute([':id' => $_SESSION['user_id']]);
 $user = $stmt->fetch();
 ?>
@@ -17,7 +17,8 @@ $user = $stmt->fetch();
 
 <div class="container mt-5">
     <h1>Your Profile</h1>
-    <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
+    <p><strong>Profile Name (private):</strong> <?= htmlspecialchars($user['username']) ?></p>
+    <p><strong>Display Name (shown to others):</strong> <?= htmlspecialchars($user['display_name']) ?></p>
     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
     <?php if (!empty($user['profile_picture'])): ?>
         <p><strong>Profile Picture:</strong><br>

@@ -84,6 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <div class="mb-3">
+        <label for="display_name" class="form-label">Display Name (shown to others)</label>
+        <input type="text" name="display_name" class="form-control" id="display_name" required>
+      </div>
+
+      <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
         <input type="email" name="email" class="form-control" id="email" value="<?= htmlspecialchars($email) ?>" required>
       </div>
@@ -96,6 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="mb-3">
         <label for="confirm" class="form-label">Confirm Password</label>
         <input type="password" name="confirm" class="form-control" id="confirm" required>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="profile_public" name="profile_public" value="1" checked>
+        <label class="form-check-label" for="profile_public">Make my profile public</label>
       </div>
 
       <button type="submit" class="btn btn-primary">Register</button>
