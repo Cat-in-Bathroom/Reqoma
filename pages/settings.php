@@ -40,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = "Upload failed.";
             }
         }
+    } else {
+        $error = "Upload error code: " . $_FILES['profile_picture']['error'];
     }
 
     // Only update if there are no errors
