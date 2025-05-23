@@ -87,6 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" style="max-width:100px;max-height:100px;"><br>
             <?php endif; ?>
             <input type="file" name="profile_picture" class="form-control">
+            <small class="form-text text-muted">
+                Allowed file types: JPG, PNG, GIF. Max size: 2MB.
+            </small>
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
         <a href="dashboard.php" class="btn btn-secondary ms-2">Back to Dashboard</a>
