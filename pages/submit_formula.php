@@ -7,6 +7,11 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../includes/config.php';
 
+// Fetch user's base difficulty
+$stmt = $pdo->prepare("SELECT difficulty FROM users WHERE id = :id");
+$stmt->execute([':id' => $_SESSION['user_id']]);
+$user_difficulty = floatval($stmt->fetchColumn());
+
 $message = '';
 $error = '';
 
@@ -17,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $difficulty = floatval($_POST['difficulty']);
     $user_id = $_SESSION['user_id'];
 
-    if (empty($title) || empty($formula_text) || empty($solution_text) || $difficulty < 1 || $difficulty > 5) {
-        $error = "Please fill in all fields and set difficulty between 1 and 5.";
+    if (empty($title) || empty($formula_text) || empty($solution_text)) {
+        $error = "Please fill in all fields.";
     } else {
         $stmt = $pdo->prepare("INSERT INTO formulas (title, formula_text, solution_text, difficulty, user_id) VALUES (:title, :formula_text, :solution_text, :difficulty, :user_id)");
         $stmt->execute([
@@ -43,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($error): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form method="post">
+    <form method="post" id="formulaForm">
         <div class="mb-3">
             <label class="form-label">Title</label>
             <input type="text" name="title" class="form-control" required>
@@ -57,11 +62,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea name="solution_text" class="form-control" rows="3" required></textarea>
         </div>
         <div class="mb-3">
-            <label class="form-label">Difficulty (1.0 = easy, 5.0 = hard)</label>
-            <input type="number" name="difficulty" class="form-control" min="1" max="5" step="0.1" value="1.0" required>
+            <label class="form-label">Difficulty</label>
+            <div>
+                <span>Your base difficulty: <strong id="baseDiff"><?= htmlspecialchars($user_difficulty) ?></strong></span>
+            </div>
+            <input type="range" min="0.5" max="2" step="0.01" value="1" id="diffMultiplier" class="form-range" style="width: 300px;">
+            <div>
+                <small>Multiplier: <span id="multiplierValue">1.00</span> &mdash; Resulting difficulty: <span id="resultDiff"><?= htmlspecialchars($user_difficulty) ?></span></small>
+            </div>
+            <input type="hidden" name="difficulty" id="difficultyInput" value="<?= htmlspecialchars($user_difficulty) ?>">
         </div>
         <button type="submit" class="btn btn-primary">Submit Formula</button>
     </form>
 </div>
+
+<script>
+const baseDiff = parseFloat(document.getElementById('baseDiff').textContent);
+const slider = document.getElementById('diffMultiplier');
+const multiplierValue = document.getElementById('multiplierValue');
+const resultDiff = document.getElementById('resultDiff');
+const difficultyInput = document.getElementById('difficultyInput');
+
+slider.addEventListener('input', function() {
+    const multiplier = parseFloat(slider.value);
+    const calculated = (baseDiff * multiplier).toFixed(2);
+    multiplierValue.textContent = multiplier.toFixed(2);
+    resultDiff.textContent = calculated;
+    difficultyInput.value = calculated;
+});
+</script>
 
 <?php include '../includes/footer.php'; ?>
