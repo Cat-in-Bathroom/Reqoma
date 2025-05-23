@@ -5,12 +5,13 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     exit;
 }
 
+$is_moderator = false;
 if ($_SESSION['user_id']) {
     $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :id");
     $stmt->execute([':id' => $_SESSION['user_id']]);
     $role = $stmt->fetchColumn();
     if ($role === 'moderator' || $role === 'admin') {
-        // user is moderator or admin
+        $is_moderator = true;
     }
 }
 ?>
