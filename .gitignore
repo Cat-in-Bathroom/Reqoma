@@ -16,3 +16,6 @@ vendor/
 # Ignore IDE/project files
 .vscode/
 .idea/
+
+# Ignore upload directories
+uploads/
