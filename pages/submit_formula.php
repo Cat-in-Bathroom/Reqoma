@@ -12,6 +12,10 @@ $stmt = $pdo->prepare("SELECT difficulty FROM users WHERE id = :id");
 $stmt->execute([':id' => $_SESSION['user_id']]);
 $user_difficulty = floatval($stmt->fetchColumn());
 
+// Fetch all available tags
+$tags_stmt = $pdo->query("SELECT id, name FROM tags ORDER BY name");
+$all_tags = $tags_stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $message = '';
 $error = '';
 
@@ -21,19 +25,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $solution_text = trim($_POST['solution_text']);
     $difficulty = floatval($_POST['difficulty']);
     $user_id = $_SESSION['user_id'];
+    $calculator_used = isset($_POST['calculator_used']) ? 1 : 0;
 
     if (empty($title) || empty($formula_text) || empty($solution_text)) {
         $error = "Please fill in all fields.";
     } else {
-        $stmt = $pdo->prepare("INSERT INTO formulas (title, formula_text, solution_text, difficulty, user_id) VALUES (:title, :formula_text, :solution_text, :difficulty, :user_id)");
-        $stmt->execute([
-            ':title' => $title,
-            ':formula_text' => $formula_text,
-            ':solution_text' => $solution_text,
-            ':difficulty' => $difficulty,
-            ':user_id' => $user_id
-        ]);
-        $message = "Formula submitted successfully!";
+        $pdo->beginTransaction();
+        try {
+            $stmt = $pdo->prepare("INSERT INTO formulas (title, formula_text, solution_text, difficulty, user_id, calculator_used) VALUES (:title, :formula_text, :solution_text, :difficulty, :user_id, :calculator_used)");
+            $stmt->execute([
+                ':title' => $title,
+                ':formula_text' => $formula_text,
+                ':solution_text' => $solution_text,
+                ':difficulty' => $difficulty,
+                ':user_id' => $user_id,
+                ':calculator_used' => $calculator_used
+            ]);
+            $formula_id = $pdo->lastInsertId();
+
+            // Insert tags
+            if (!empty($_POST['tags']) && is_array($_POST['tags'])) {
+                $tag_stmt = $pdo->prepare("INSERT INTO formula_tags (formula_id, tag_id) VALUES (:formula_id, :tag_id)");
+                foreach ($_POST['tags'] as $tag_id) {
+                    $tag_stmt->execute([
+                        ':formula_id' => $formula_id,
+                        ':tag_id' => intval($tag_id)
+                    ]);
+                }
+            }
+            $pdo->commit();
+            $message = "Formula submitted successfully!";
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            $error = "Error submitting formula: " . $e->getMessage();
+        }
     }
 }
 ?>
@@ -71,6 +96,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <small>Multiplier: <span id="multiplierValue">1.00</span> &mdash; Resulting difficulty: <span id="resultDiff"><?= htmlspecialchars($user_difficulty) ?></span></small>
             </div>
             <input type="hidden" name="difficulty" id="difficultyInput" value="<?= htmlspecialchars($user_difficulty) ?>">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tags</label><br>
+            <?php foreach ($all_tags as $tag): ?>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag-<?= $tag['id'] ?>">
+                    <label class="form-check-label" for="tag-<?= $tag['id'] ?>"><?= htmlspecialchars($tag['name']) ?></label>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="calculator_used" name="calculator_used" value="1">
+            <label class="form-check-label" for="calculator_used">Calculator used</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit Formula</button>
     </form>
