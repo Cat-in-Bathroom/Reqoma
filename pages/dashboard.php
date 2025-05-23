@@ -4,6 +4,15 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
 }
+
+if ($_SESSION['user_id']) {
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $role = $stmt->fetchColumn();
+    if ($role === 'moderator' || $role === 'admin') {
+        // user is moderator or admin
+    }
+}
 ?>
 
 <?php include '../includes/auth.php'; ?>
