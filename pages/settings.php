@@ -22,10 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle profile picture upload
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-        $ext = pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
-        $target = '../uploads/profile_' . $user_id . '.' . $ext;
-        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target)) {
-            $profile_picture = $target;
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $file_type = mime_content_type($_FILES['profile_picture']['tmp_name']);
+        $max_size = 2 * 1024 * 1024; // 2MB
+
+        if (!in_array($file_type, $allowed_types)) {
+            $error = "Only JPG, PNG, and GIF files are allowed.";
+        } elseif ($_FILES['profile_picture']['size'] > $max_size) {
+            $error = "File size must be under 2MB.";
+        } else {
+            $ext = pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
+            $target = '../uploads/profile_' . $user_id . '.' . $ext;
+            if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target)) {
+                $profile_picture = $target;
+            } else {
+                $error = "Upload failed.";
+            }
         }
     }
 
