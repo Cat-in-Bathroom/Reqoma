@@ -6,6 +6,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Check if user is logged in
 $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
+$profile_picture = '';
+if ($isLoggedIn) {
+    require_once __DIR__ . '/../includes/config.php';
+    $stmt = $pdo->prepare("SELECT profile_picture FROM users WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $profile_picture = $stmt->fetchColumn();
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,9 +44,12 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <?php if ($isLoggedIn): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $base_url ?>profile.php">
-                            Welcome, <?= htmlspecialchars($_SESSION['username']) ?>
+                    <li class="nav-item d-flex align-items-center">
+                        <a class="nav-link d-flex align-items-center" href="<?= $base_url ?>profile.php">
+                            <?php if (!empty($profile_picture)): ?>
+                                <img src="<?= htmlspecialchars($profile_picture) ?>" alt="Profile Picture" class="rounded-circle me-2" style="width:32px;height:32px;object-fit:cover;">
+                            <?php endif; ?>
+                            <?= htmlspecialchars($_SESSION['username']) ?>
                         </a>
                     </li>
                     <li class="nav-item">

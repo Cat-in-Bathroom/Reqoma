@@ -22,7 +22,7 @@ $user = $stmt->fetch();
     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
     <?php if (!empty($user['profile_picture'])): ?>
         <p><strong>Profile Picture:</strong><br>
-            <img src="<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" style="max-width:150px;max-height:150px;">
+            <img src="<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" class="rounded-circle" style="max-width:60px;max-height:60px;">
         </p>
     <?php endif; ?>
     <a href="settings.php" class="btn btn-secondary me-2">Settings</a>
