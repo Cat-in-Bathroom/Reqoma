@@ -15,6 +15,10 @@ if ($_SESSION['user_id']) {
         $is_moderator = true;
     }
 }
+
+// Fetch formulas (only approved/public ones)
+$formulas_stmt = $pdo->query("SELECT id, title, formula_text, score FROM formulas WHERE status = 'approved' ORDER BY created_at DESC");
+$formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include '../includes/auth.php'; ?>
@@ -43,6 +47,13 @@ if ($_SESSION['user_id']) {
       background-color: #495057;
       display: block;
       padding-left: 10px;
+    }
+    .card-link {
+      color: inherit;
+      text-decoration: none;
+    }
+    .card-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -85,7 +96,27 @@ if ($_SESSION['user_id']) {
       <!-- Main content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
         <h2>Welcome to the Dashboard</h2>
-        <p>Select a page from the sidebar to navigate.</p>
+        <div class="row">
+          <?php if (empty($formulas)): ?>
+            <div class="col-12">
+              <div class="alert alert-info">No formulas available yet.</div>
+            </div>
+          <?php else: ?>
+            <?php foreach ($formulas as $formula): ?>
+              <div class="col-md-6 col-lg-4 mb-4">
+                <a href="formula.php?id=<?= $formula['id'] ?>" class="card-link">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title"><?= htmlspecialchars($formula['title']) ?></h5>
+                      <p class="card-text"><?= nl2br(htmlspecialchars($formula['formula_text'])) ?></p>
+                      <p class="card-text"><small class="text-muted">Score: <?= isset($formula['score']) ? intval($formula['score']) : 'N/A' ?></small></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
       </main>
     </div>
   </div>
