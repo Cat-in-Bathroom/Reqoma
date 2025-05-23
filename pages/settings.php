@@ -34,7 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $ext = pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
             $target = '../uploads/profile_' . $user_id . '.' . $ext;
-            if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target)) {
+            if (!is_writable(dirname($target))) {
+            $error = "Uploads directory is not writable: " . dirname($target);
+            }elseif (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target)) {
                 $profile_picture = $target;
             } else {
                 $error = "Upload failed. Check that the uploads directory exists and is writable. Target: $target";
