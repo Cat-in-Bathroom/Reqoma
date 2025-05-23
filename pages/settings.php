@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target)) {
                 $profile_picture = $target;
             } else {
-                $error = "Upload failed.";
+                $error = "Upload failed. Check that the uploads directory exists and is writable. Target: $target";
             }
         }
     } else {
