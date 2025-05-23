@@ -54,6 +54,11 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
             </a>
           </li>
           <li class="nav-item mb-2">
+            <a class="nav-link" href="submit_formula.php">
+              <i class="bi bi-plus-circle"></i> Submit Formula
+            </a>
+          </li>
+          <li class="nav-item mb-2">
             <a class="nav-link" href="page3.php">Page 3</a>
           </li>
         </ul>
