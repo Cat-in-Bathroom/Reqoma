@@ -61,6 +61,13 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
           <li class="nav-item mb-2">
             <a class="nav-link" href="page3.php">Page 3</a>
           </li>
+          <?php if ($is_moderator): ?>
+          <li class="nav-item mb-2">
+              <a class="nav-link" href="moderate_formulas.php">
+                  <i class="bi bi-shield-check"></i> Moderate Formulas
+              </a>
+          </li>
+          <?php endif; ?>
         </ul>
       </nav>
 

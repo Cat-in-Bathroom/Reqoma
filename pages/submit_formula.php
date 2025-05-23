@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $difficulty = floatval($_POST['difficulty']);
     $user_id = $_SESSION['user_id'];
     $calculator_used = isset($_POST['calculator_used']) ? 1 : 0;
+    $hint_1 = trim($_POST['hint_1']);
+    $hint_2 = trim($_POST['hint_2']);
+    $hint_3 = trim($_POST['hint_3']);
 
     if (empty($title) || empty($formula_text) || empty($solution_text)) {
         $error = "Please fill in all fields.";
@@ -53,6 +56,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                 }
             }
+
+            // Insert hints
+            $hints = [
+                1 => trim($_POST['hint_1'] ?? ''),
+                2 => trim($_POST['hint_2'] ?? ''),
+                3 => trim($_POST['hint_3'] ?? '')
+            ];
+            $hint_stmt = $pdo->prepare("INSERT INTO formula_hints (formula_id, hint_order, hint_text) VALUES (:formula_id, :hint_order, :hint_text)");
+            foreach ($hints as $order => $text) {
+                if (!empty($text)) {
+                    $hint_stmt->execute([
+                        ':formula_id' => $formula_id,
+                        ':hint_order' => $order,
+                        ':hint_text' => $text
+                    ]);
+                }
+            }
+
             $pdo->commit();
             $message = "Formula submitted successfully! Your submission will be checked by moderation before it becomes public.";
         } catch (Exception $e) {
@@ -108,6 +129,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="calculator_used" name="calculator_used" value="1">
             <label class="form-check-label" for="calculator_used">Calculator used</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hints (optional, shown in order from least to most helpful):</label>
+            <small class="form-text text-muted">
+                Hint 1: Smallest clue. Hint 2: More help. Hint 3: Most detailed hint.
+            </small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hint 1 (optional, smallest clue)</label>
+            <input type="text" name="hint_1" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hint 2 (optional, more help)</label>
+            <input type="text" name="hint_2" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hint 3 (optional, most detailed hint)</label>
+            <input type="text" name="hint_3" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Submit Formula</button>
     </form>
