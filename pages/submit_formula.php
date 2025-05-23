@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             $pdo->commit();
-            $message = "Formula submitted successfully!";
+            $message = "Formula submitted successfully! Your submission will be checked by moderation before it becomes public.";
         } catch (Exception $e) {
             $pdo->rollBack();
             $error = "Error submitting formula: " . $e->getMessage();
