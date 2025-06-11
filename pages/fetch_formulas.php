@@ -10,19 +10,11 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $formulas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Return empty array if no formulas found to trigger placeholder logic
-if (empty($formulas)) {
-    header('Content-Type: application/json');
-    echo json_encode(['formulas' => []]);
-    exit;
-}
-
-// Escape output for JS
-foreach ($formulas as &$f) {
-    $f['title'] = htmlspecialchars($f['title']);
-    $f['formula_text'] = nl2br(htmlspecialchars($f['formula_text']));
-    $f['score'] = isset($f['score']) ? intval($f['score']) : 'N/A';
-}
-
+// Always return a response, even if empty
 header('Content-Type: application/json');
-echo json_encode(['formulas' => $formulas]);
+echo json_encode([
+    'formulas' => $formulas,
+    'offset' => $offset,
+    'limit' => $limit,
+    'total' => count($formulas)
+]);
