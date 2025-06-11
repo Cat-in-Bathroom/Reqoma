@@ -19,3 +19,13 @@
     </ul>
   </div>
 </nav>
+<!-- Floating show button (always outside the sidebar nav) -->
+<button id="sidebarShow"
+        class="btn btn-primary btn-sm sidebar-show-btn"
+        type="button"
+        aria-label="Show Sidebar"
+        aria-controls="sidebar"
+        aria-expanded="false"
+        style="display:none;">
+  <i class="bi bi-list"></i>
+</button>
