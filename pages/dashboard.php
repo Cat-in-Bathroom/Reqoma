@@ -80,9 +80,6 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
               <i class="bi bi-plus-circle"></i> Submit Formula
             </a>
           </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="page3.php">Page 3</a>
-          </li>
           <?php if ($is_moderator): ?>
           <li class="nav-item mb-2">
               <a class="nav-link" href="moderate_formulas.php">
@@ -96,26 +93,45 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- Main content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
         <h2>Welcome to the Dashboard</h2>
-        <div class="row">
-          <?php if (empty($formulas)): ?>
-            <div class="col-12">
-              <div class="alert alert-info">No formulas available yet.</div>
-            </div>
-          <?php else: ?>
-            <?php foreach ($formulas as $formula): ?>
-              <div class="col-md-6 col-lg-4 mb-4">
-                <a href="formula.php?id=<?= $formula['id'] ?>" class="card-link">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title"><?= htmlspecialchars($formula['title']) ?></h5>
-                      <p class="card-text"><?= nl2br(htmlspecialchars($formula['formula_text'])) ?></p>
-                      <p class="card-text"><small class="text-muted">Score: <?= isset($formula['score']) ? intval($formula['score']) : 'N/A' ?></small></p>
+        <div class="row justify-content-center">
+          <?php
+            $cards = [];
+            if (!empty($formulas)) {
+              foreach ($formulas as $formula) {
+                $cards[] = '
+                  <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                    <a href="formula.php?id=' . $formula['id'] . '" class="card-link w-100">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h5 class="card-title">' . htmlspecialchars($formula['title']) . '</h5>
+                          <p class="card-text">' . nl2br(htmlspecialchars($formula['formula_text'])) . '</p>
+                          <p class="card-text"><small class="text-muted">Score: ' . (isset($formula['score']) ? intval($formula['score']) : 'N/A') . '</small></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                ';
+                if (count($cards) === 3) break; // Only show 3 cards per row
+              }
+            }
+            // Fill up to 3 cards with placeholders if needed
+            while (count($cards) < 3) {
+              $cards[] = '
+                <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                  <div class="card h-100 border-secondary text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                      <h5 class="card-title text-muted">No Data</h5>
+                      <p class="card-text text-muted">No formula available.</p>
                     </div>
                   </div>
-                </a>
-              </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
+                </div>
+              ';
+            }
+            // Output the cards
+            foreach ($cards as $card) {
+              echo $card;
+            }
+          ?>
         </div>
       </main>
     </div>
