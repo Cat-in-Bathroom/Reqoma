@@ -24,6 +24,12 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
   <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
       <!-- Sidebar -->
