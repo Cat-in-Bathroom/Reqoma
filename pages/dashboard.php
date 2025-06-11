@@ -93,9 +93,9 @@ error_reporting(E_ALL);
     <!-- Main content -->
     <main id="main-content" class="flex-grow-1 px-md-4 py-4">
       <h2>Welcome to the Dashboard</h2>
-      <div class="container-fluid">
+      <div class="container" style="max-width: 1000px;"> <!-- Changed from container-fluid and added max-width -->
         <div id="formula-row" class="row g-4">
-
+          <!-- Cards will be loaded here -->
         </div>
         <div id="loading" class="text-center my-3" style="display:none;">
           <div class="spinner-border text-primary"></div>
@@ -140,7 +140,7 @@ function createCard(formula) {
     return `
       <div class="col-md-4 mb-4">
         <div class="card h-100">
-          <div class="card-body">
+          <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
             <h5 class="card-title">No Data</h5>
             <p class="card-text">No formula available.</p>
           </div>
@@ -153,7 +153,7 @@ function createCard(formula) {
     <div class="col-md-4 mb-4">
       <a href="formula.php?id=${formula.id}" class="card-link">
         <div class="card h-100">
-          <div class="card-body">
+          <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
             <h5 class="card-title">${formula.title}</h5>
             <p class="card-text">${formula.formula_text}</p>
             <p class="card-text"><small class="text-muted">Score: ${formula.score}</small></p>

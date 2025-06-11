@@ -139,3 +139,25 @@ footer {
 .sidebar .nav-link:hover {
   background-color: #495057;
 }
+
+/* Card styles */
+.card {
+  border: 1px solid rgba(0,0,0,.125);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-body {
+  height: 200px;
+  overflow: hidden;
+}
+
+/* Container max-width for cards */
+#main-content .container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
