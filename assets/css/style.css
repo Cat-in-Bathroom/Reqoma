@@ -32,6 +32,7 @@ footer {
   flex-direction: column;
   border-right: 1px solid rgba(255,255,255,0.1);
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  min-width: 48px;
 }
 
 .sidebar-header {
@@ -190,6 +191,8 @@ footer {
   min-width: 48px;
   width: 48px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
 /* Normal sidebar icon/text */

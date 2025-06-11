@@ -1,4 +1,15 @@
 <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
+  <div class="sidebar-header d-flex align-items-center justify-content-between">
+    <h4 class="text-white mb-0 fs-5">Dashboard</h4>
+    <button id="sidebarToggle"
+            class="sidebar-toggle-btn"
+            type="button"
+            aria-label="Toggle Sidebar"
+            aria-controls="sidebar"
+            aria-expanded="true">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+  </div>
   <hr class="bg-secondary my-2">
   <div class="sidebar-content">
     <ul class="nav nav-pills flex-column gap-1">
@@ -42,12 +53,3 @@
     </ul>
   </div>
 </nav>
-<!-- Single toggle button, always after sidebar -->
-<button id="sidebarToggle"
-        class="sidebar-toggle-btn"
-        type="button"
-        aria-label="Toggle Sidebar"
-        aria-controls="sidebar"
-        aria-expanded="true">
-  <i class="bi bi-chevron-left"></i>
-</button>
