@@ -61,8 +61,8 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar Toggle Button (visible on all screens now) -->
-      <button id="sidebarToggle" class="btn btn-secondary mb-3" type="button">
-        <i class="bi bi-list"></i> Menu
+      <button id="sidebarToggle" class="btn btn-secondary btn-sm" type="button">
+        <i class="bi bi-list"></i>
       </button>
       <!-- Sidebar -->
       <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3">
