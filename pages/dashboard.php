@@ -165,7 +165,7 @@ function createCard(formula) {
 }
 
 function loadFormulas() {
-  if (loading || endReached) return;
+  if (loading) return; // Remove endReached check to allow infinite loading
   
   loading = true;
   document.getElementById('loading').style.display = 'block';
@@ -185,7 +185,6 @@ function loadFormulas() {
         for (let i = 0; i < 3; i++) {
           row.insertAdjacentHTML('beforeend', createCard(null));
         }
-        endReached = true;
       } else {
         // Add new cards without replacing existing ones
         data.formulas.forEach(formula => {
@@ -193,20 +192,6 @@ function loadFormulas() {
         });
         
         offset += data.formulas.length;
-        if (data.formulas.length < limit) {
-          // Fill the rest of the current row with placeholders
-          const remainder = data.formulas.length % 3;
-          if (remainder !== 0) {
-            for (let i = 0; i < (3 - remainder); i++) {
-              row.insertAdjacentHTML('beforeend', createCard(null));
-            }
-          }
-          // Add one more row of placeholders
-          for (let i = 0; i < 3; i++) {
-            row.insertAdjacentHTML('beforeend', createCard(null));
-          }
-          endReached = true;
-        }
       }
     })
     .catch(err => console.error('Error loading formulas:', err))
