@@ -70,10 +70,12 @@ footer {
   opacity: 1;
 }
 .sidebar-hidden {
-  margin-left: -228px; /* 260px - 32px strip */
+  margin-left: -212px; /* 260px - 48px = 48px strip */
   opacity: 1;
   pointer-events: auto;
   width: 260px;
+  background: #212529;
+  overflow: visible;
 }
 
 /* Main content margin shifts */
@@ -83,40 +85,42 @@ footer {
   transition: margin-left 0.7s ease;
 }
 .hide-sidebar #main-content {
-  margin-left: 32px;
+  margin-left: 48px; /* match the new strip width */
 }
 
-/* Sidebar show button */
-.sidebar-show-btn {
+/* Sidebar toggle button */
+.sidebar-toggle-btn {
   position: absolute;
   top: 72px;
   left: 0;
   z-index: 1101;
-  width: 32px;
+  width: 48px;
   height: 48px;
   border-radius: 0 6px 6px 0;
   background: #212529;
   color: #fff;
   border: none;
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: left 0.7s ease;
+  transition: left 0.7s ease, transform 0.3s;
+  font-size: 1.5rem;
 }
-.hide-sidebar .sidebar-show-btn {
-  display: flex;
+.hide-sidebar .sidebar-toggle-btn {
   left: 0;
+  /* Flip the icon when sidebar is hidden */
 }
-.sidebar-visible ~ .sidebar-show-btn {
-  display: none !important;
+.hide-sidebar .sidebar-toggle-btn i {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
 }
 
 /* Hide button slides with sidebar */
 #sidebarHide {
   position: absolute;
-  left: 228px; /* 260px - 32px */
+  left: 212px; /* 260px - 48px */
   top: 16px;
   z-index: 1100;
   background: #212529;
@@ -168,6 +172,9 @@ footer {
   margin-right: 0;
   font-size: 1.5rem;
   display: inline-block;
+  color: #fff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .sidebar.sidebar-hidden .nav-link span,
@@ -175,20 +182,22 @@ footer {
   display: none !important;
 }
 
+.sidebar.sidebar-hidden .nav-link {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: center;
+  min-width: 48px;
+  width: 48px;
+  box-sizing: border-box;
+}
+
+/* Normal sidebar icon/text */
 .sidebar .nav-link i {
   margin-right: 0.5rem;
   font-size: 1.2rem;
   vertical-align: middle;
 }
-
 .sidebar .nav-link .sidebar-label {
   vertical-align: middle;
-}
-
-/* Optional: center icons in collapsed state */
-.sidebar.sidebar-hidden .nav-link {
-  text-align: center;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  justify-content: center;
 }

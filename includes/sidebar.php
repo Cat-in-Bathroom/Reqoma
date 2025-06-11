@@ -1,14 +1,6 @@
 <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
-  <div class="sidebar-header d-flex justify-content-between align-items-center">
+  <div class="sidebar-header d-flex align-items-center">
     <h4 class="text-white mb-0 fs-5">Dashboard</h4>
-    <button id="sidebarHide"
-            class="btn btn-outline-light btn-sm"
-            type="button"
-            aria-label="Hide Sidebar"
-            aria-controls="sidebar"
-            aria-expanded="true">
-      <i class="bi bi-x-lg"></i>
-    </button>
   </div>
   <hr class="bg-secondary my-2">
   <div class="sidebar-content">
@@ -53,12 +45,12 @@
     </ul>
   </div>
 </nav>
-<!-- Show button: always after sidebar, never inside -->
-<button id="sidebarShow"
-        class="sidebar-show-btn"
+<!-- Single toggle button, always after sidebar -->
+<button id="sidebarToggle"
+        class="sidebar-toggle-btn"
         type="button"
-        aria-label="Show Sidebar"
+        aria-label="Toggle Sidebar"
         aria-controls="sidebar"
-        aria-expanded="false">
-  <i class="bi bi-list"></i>
+        aria-expanded="true">
+  <i class="bi bi-chevron-left"></i>
 </button>
