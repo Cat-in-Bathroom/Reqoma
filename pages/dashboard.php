@@ -173,14 +173,25 @@ function loadFormulas() {
     .then(data => {
       let row = document.getElementById('formula-row');
       if (data.formulas.length === 0 && offset === 0) {
+        // Show placeholder cards only if no formulas exist
         for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
         endReached = true;
       } else if (data.formulas.length === 0) {
         endReached = true;
       } else {
-        let cards = data.formulas.map(createCard);
-        while (cards.length % 3 !== 0) cards.push(createCard(null));
-        row.innerHTML += cards.join('');
+        // Append new cards to existing ones
+        data.formulas.forEach(formula => {
+          row.innerHTML += createCard(formula);
+        });
+        
+        // Fill incomplete row with empty cards
+        const remainder = data.formulas.length % 3;
+        if (remainder !== 0) {
+          for (let i = 0; i < (3 - remainder); i++) {
+            row.innerHTML += createCard(null);
+          }
+        }
+        
         offset += data.formulas.length;
         if (data.formulas.length < limit) endReached = true;
       }
