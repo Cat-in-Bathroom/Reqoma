@@ -27,7 +27,11 @@ footer {
   background-color: #343a40;
   color: white;
   z-index: 1050;
+}
+
+.sidebar-content {
   overflow-y: auto;
+  height: calc(100vh - 56px - 56px); /* sidebar height minus header height (adjust if needed) */
 }
 
 .sidebar-header {

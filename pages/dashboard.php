@@ -34,31 +34,33 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="profile.php">My Profile</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="settings.php">Setting</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="leaderboard.php">
-              <i class="bi bi-trophy"></i> Leaderboard
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="submit_formula.php">
-              <i class="bi bi-plus-circle"></i> Submit Formula
-            </a>
-          </li>
-          <?php if ($is_moderator): ?>
-          <li class="nav-item mb-2">
-              <a class="nav-link" href="moderate_formulas.php">
-                  <i class="bi bi-shield-check"></i> Moderate Formulas
+        <div class="sidebar-content">
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="profile.php">My Profile</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="settings.php">Setting</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="leaderboard.php">
+                <i class="bi bi-trophy"></i> Leaderboard
               </a>
-          </li>
-          <?php endif; ?>
-        </ul>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="submit_formula.php">
+                <i class="bi bi-plus-circle"></i> Submit Formula
+              </a>
+            </li>
+            <?php if ($is_moderator): ?>
+            <li class="nav-item mb-2">
+                <a class="nav-link" href="moderate_formulas.php">
+                    <i class="bi bi-shield-check"></i> Moderate Formulas
+                </a>
+            </li>
+            <?php endif; ?>
+          </ul>
+        </div>
       </nav>
       <!-- Floating show button (hidden by default) -->
       <button id="sidebarShow" class="btn btn-secondary btn-sm sidebar-show-btn"
