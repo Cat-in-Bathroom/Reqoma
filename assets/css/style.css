@@ -1,12 +1,33 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #8aa1c2;
+  min-height: 100vh;
 }
 
 footer {
   background-color: #252a2f;
   padding: 1rem 0;
   text-align: center;
+}
+
+#dashboard-flex {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  top: 56px; /* Height of the navbar */
+  left: 0;
+  width: 260px;
+  min-width: 200px;
+  max-width: 300px;
+  height: calc(100vh - 56px);
+  transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+  background-color: #343a40;
+  color: white;
+  z-index: 1050;
+  overflow-y: auto;
 }
 
 .sidebar-header {
@@ -16,85 +37,75 @@ footer {
   z-index: 2;
   padding-bottom: 0.5rem;
 }
-    body {
-      min-height: 100vh;
-    }
-    #dashboard-flex {
-      display: flex;
-      min-height: 100vh;
-    }
-    .sidebar {
-      position: fixed;
-      top: 56px; /* Height of the navbar (default Bootstrap is 56px) */
-      left: 0;
-      width: 260px;
-      min-width: 200px;
-      max-width: 300px;
-      height: calc(100vh - 56px);
-      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
-      background-color: #343a40;
-      color: white;
-      z-index: 1050;
-      overflow-y: auto;
-    }
-    .sidebar-hidden {
-      margin-left: -260px;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .sidebar-visible {
-      margin-left: 0;
-      opacity: 1;
-    }
-    #main-content {
-      flex-grow: 1;
-      margin-left: 260px; /* Same as sidebar width */
-      margin-top: 56px;   /* Same as navbar height */
-      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1);
-    }
-    .sidebar-hidden ~ #main-content {
-      margin-left: 0;
-    }
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-    }
-    .sidebar a:hover {
-      background-color: #495057;
-      display: block;
-      padding-left: 10px;
-    }
-    .card-link {
-      color: inherit;
-      text-decoration: none;
-    }
-    .card-link:hover {
-      text-decoration: underline;
-    }
-    .sidebar-show-btn {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1051;
-      display: none;
-    }
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 80vw;
-        min-width: 0;
-        max-width: 100vw;
-        position: fixed;
-        top: 56px;
-        left: 0;
-        height: calc(100vh - 56px);
-        z-index: 1050;
-      }
-      #main-content {
-        margin-left: 0 !important;
-      }
-    }
-    .navbar {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      min-height: 56px;
-    }
+
+.sidebar-hidden {
+  margin-left: -260px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar-visible {
+  margin-left: 0;
+  opacity: 1;
+}
+
+#main-content {
+  flex-grow: 1;
+  margin-left: 260px; /* Same as sidebar width */
+  margin-top: 56px;   /* Same as navbar height */
+  transition: margin-left 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+.hide-sidebar #main-content {
+  margin-left: 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background-color: #495057;
+  display: block;
+  padding-left: 10px;
+}
+
+.card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.sidebar-show-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1051;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80vw;
+    min-width: 0;
+    max-width: 100vw;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: calc(100vh - 56px);
+    z-index: 1050;
+  }
+  #main-content {
+    margin-left: 0 !important;
+  }
+}
+
+.navbar {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 56px;
+}
