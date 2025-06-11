@@ -175,24 +175,17 @@ function loadFormulas() {
     .then(data => {
       let row = document.getElementById('formula-row');
       
-      if (data.formulas.length === 0 && offset === 0) {
-        // First load with no data - show unlimited placeholders in groups of 3
-        for (let i = 0; i < 12; i++) { // Show 4 rows of placeholders initially
-          row.insertAdjacentHTML('beforeend', createCard(null));
-        }
-      } else if (data.formulas.length === 0) {
-        // No more data - add one more row of placeholders
-        for (let i = 0; i < 3; i++) {
-          row.insertAdjacentHTML('beforeend', createCard(null));
-        }
-      } else {
-        // Add new cards without replacing existing ones
-        data.formulas.forEach(formula => {
-          row.insertAdjacentHTML('beforeend', createCard(formula));
-        });
-        
-        offset += data.formulas.length;
+      // Always show the real formulas first
+      data.formulas.forEach(formula => {
+        row.insertAdjacentHTML('beforeend', createCard(formula));
+      });
+      
+      // Then add a row of placeholders, regardless of data
+      for (let i = 0; i < 3; i++) {
+        row.insertAdjacentHTML('beforeend', createCard(null));
       }
+      
+      offset += data.formulas.length;
     })
     .catch(err => console.error('Error loading formulas:', err))
     .finally(() => {
