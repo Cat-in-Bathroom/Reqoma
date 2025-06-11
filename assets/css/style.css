@@ -24,7 +24,7 @@ footer {
   background-color: #212529 !important; /* Force dark background */
   color: #fff;
   z-index: 1050;
-  transition: margin-left 1.7s cubic-bezier(.4,2,.6,1), opacity 1.7s;
+  transition: margin-left 0.7s ease, opacity 0.7s ease;
   display: flex;          /* Add this */
   flex-direction: column; /* Add this */
   border-right: 1px solid rgba(255,255,255,0.1);
@@ -73,7 +73,7 @@ footer {
 }
 
 #sidebar {
-  transition: margin-left 1.7s cubic-bezier(.4,2,.6,1), opacity 1.7s;
+  transition: margin-left 0.7s ease, opacity 0.7s ease;
 }
 
 #sidebarHide {
@@ -100,7 +100,7 @@ footer {
 #main-content {
   margin-left: 260px; /* Match sidebar width */
   margin-top: 56px;  /* Match navbar height */
-  transition: margin-left 1.7s cubic-bezier(.4,2,.6,1);
+  transition: margin-left 0.7s ease, opacity 0.7s ease;
 }
 
 .hide-sidebar #main-content {
