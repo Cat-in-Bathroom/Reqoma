@@ -28,29 +28,38 @@ $formulas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include '../includes/header.php';
 ?>
 
-<div class="container mt-5">
-    <h1>Moderate Formula Submissions</h1>
-    <?php if (empty($formulas)): ?>
-        <div class="alert alert-info">No pending submissions.</div>
-    <?php else: ?>
-        <?php foreach ($formulas as $formula): ?>
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title"><?= htmlspecialchars($formula['title']) ?></h5>
-                    <p><strong>Submitted by:</strong> <?= htmlspecialchars($formula['username']) ?></p>
-                    <p><strong>Formula:</strong> <?= nl2br(htmlspecialchars($formula['formula_text'])) ?></p>
-                    <p><strong>Solution:</strong> <?= nl2br(htmlspecialchars($formula['solution_text'])) ?></p>
-                    <p><strong>Difficulty:</strong> <?= htmlspecialchars($formula['difficulty']) ?></p>
-                    <p><strong>Calculator used:</strong> <?= $formula['calculator_used'] ? 'Yes' : 'No' ?></p>
-                    <form method="post" class="d-inline">
-                        <input type="hidden" name="formula_id" value="<?= $formula['id'] ?>">
-                        <button type="submit" name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
-                        <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
-                    </form>
-                </div>
+<div class="container-fluid">
+    <div class="d-flex" id="dashboard-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">...</nav>
+        <!-- Main content -->
+        <main id="main-content" class="flex-grow-1 px-md-4 py-4">
+            <div class="container" style="max-width: 1000px;">
+                <h1>Moderate Formula Submissions</h1>
+                <?php if (empty($formulas)): ?>
+                    <div class="alert alert-info">No pending submissions.</div>
+                <?php else: ?>
+                    <?php foreach ($formulas as $formula): ?>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= htmlspecialchars($formula['title']) ?></h5>
+                                <p><strong>Submitted by:</strong> <?= htmlspecialchars($formula['username']) ?></p>
+                                <p><strong>Formula:</strong> <?= nl2br(htmlspecialchars($formula['formula_text'])) ?></p>
+                                <p><strong>Solution:</strong> <?= nl2br(htmlspecialchars($formula['solution_text'])) ?></p>
+                                <p><strong>Difficulty:</strong> <?= htmlspecialchars($formula['difficulty']) ?></p>
+                                <p><strong>Calculator used:</strong> <?= $formula['calculator_used'] ? 'Yes' : 'No' ?></p>
+                                <form method="post" class="d-inline">
+                                    <input type="hidden" name="formula_id" value="<?= $formula['id'] ?>">
+                                    <button type="submit" name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                                    <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        </main>
+    </div>
 </div>
 
 <?php include '../includes/footer.php'; ?>

@@ -86,70 +86,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include '../includes/header.php'; ?>
 
-<div class="container mt-5">
-    <h1>Submit a Math Formula</h1>
-    <?php if ($message): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
-    <?php endif; ?>
-    <?php if ($error): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-    <form method="post" id="formulaForm">
-        <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Formula</label>
-            <textarea name="formula_text" class="form-control" rows="3" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Solution / Answers</label>
-            <textarea name="solution_text" class="form-control" rows="3" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Difficulty</label>
-            <div>
-                <span>Your base difficulty: <strong id="baseDiff"><?= htmlspecialchars($user_difficulty) ?></strong></span>
+<div class="container-fluid">
+    <div class="d-flex" id="dashboard-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <!-- Sidebar content here -->
+        </nav>
+        <!-- Main content -->
+        <main id="main-content" class="flex-grow-1 px-md-4 py-4">
+            <div class="container" style="max-width: 1000px;">
+                <h1>Submit a Math Formula</h1>
+                <?php if ($message): ?>
+                    <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+                <?php endif; ?>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
+                <form method="post" id="formulaForm">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Formula</label>
+                        <textarea name="formula_text" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Solution / Answers</label>
+                        <textarea name="solution_text" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Difficulty</label>
+                        <div>
+                            <span>Your base difficulty: <strong id="baseDiff"><?= htmlspecialchars($user_difficulty) ?></strong></span>
+                        </div>
+                        <input type="range" min="0.5" max="2" step="0.01" value="1" id="diffMultiplier" class="form-range" style="width: 300px;">
+                        <div>
+                            <small>Multiplier: <span id="multiplierValue">1.00</span> &mdash; Resulting difficulty: <span id="resultDiff"><?= htmlspecialchars($user_difficulty) ?></span></small>
+                        </div>
+                        <input type="hidden" name="difficulty" id="difficultyInput" value="<?= htmlspecialchars($user_difficulty) ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                        <select class="form-select" id="tags" name="tags[]" multiple="multiple" style="width:100%">
+                            <?php foreach ($all_tags as $tag): ?>
+                                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="calculator_used" name="calculator_used" value="1">
+                        <label class="form-check-label" for="calculator_used">Calculator used</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hints (optional, shown in order from least to most helpful):</label>
+                        <small class="form-text text-muted">
+                            Hint 1: Smallest clue. Hint 2: More help. Hint 3: Most detailed hint.
+                        </small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hint 1 (optional, smallest clue)</label>
+                        <input type="text" name="hint_1" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hint 2 (optional, more help)</label>
+                        <input type="text" name="hint_2" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hint 3 (optional, most detailed hint)</label>
+                        <input type="text" name="hint_3" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Formula</button>
+                </form>
             </div>
-            <input type="range" min="0.5" max="2" step="0.01" value="1" id="diffMultiplier" class="form-range" style="width: 300px;">
-            <div>
-                <small>Multiplier: <span id="multiplierValue">1.00</span> &mdash; Resulting difficulty: <span id="resultDiff"><?= htmlspecialchars($user_difficulty) ?></span></small>
-            </div>
-            <input type="hidden" name="difficulty" id="difficultyInput" value="<?= htmlspecialchars($user_difficulty) ?>">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Tags</label>
-            <select class="form-select" id="tags" name="tags[]" multiple="multiple" style="width:100%">
-                <?php foreach ($all_tags as $tag): ?>
-                    <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="calculator_used" name="calculator_used" value="1">
-            <label class="form-check-label" for="calculator_used">Calculator used</label>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hints (optional, shown in order from least to most helpful):</label>
-            <small class="form-text text-muted">
-                Hint 1: Smallest clue. Hint 2: More help. Hint 3: Most detailed hint.
-            </small>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hint 1 (optional, smallest clue)</label>
-            <input type="text" name="hint_1" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hint 2 (optional, more help)</label>
-            <input type="text" name="hint_2" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hint 3 (optional, most detailed hint)</label>
-            <input type="text" name="hint_3" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Formula</button>
-    </form>
+        </main>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -35,8 +35,8 @@ include '../includes/header.php';
 <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
         <!-- Main content -->
-        <main id="main-content" class="flex-grow-1">
-            <div class="container mt-5">
+        <main id="main-content" class="flex-grow-1 px-md-4 py-4">
+            <div class="container" style="max-width: 1000px;">
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="card shadow-lg">

@@ -5,8 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
 ?>
 
-</main>
-
 <footer class="bg-dark fixed-bottom text-light py-3">
   <div class="container text-center">
     <div class="mb-2 d-flex justify-content-center align-items-center">

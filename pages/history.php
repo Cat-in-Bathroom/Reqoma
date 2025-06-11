@@ -113,7 +113,7 @@ include '../includes/header.php';
                         <a href="dashboard.php" class="alert-link">Browse formulas</a> to get started!
                     </div>
                 <?php else: ?>
-                    <div class="row g-4">
+                    <div id="formula-row" class="row g-4">
                         <?php foreach ($attempts as $attempt): ?>
                             <div class="col-md-4 mb-4">
                                 <div class="card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
