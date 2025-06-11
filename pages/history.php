@@ -7,6 +7,17 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 
 require_once __DIR__ . '/../includes/config.php';
 
+// Check if the user is a moderator or admin
+$is_moderator = false;
+if ($_SESSION['user_id']) {
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $role = $stmt->fetchColumn();
+    if ($role === 'moderator' || $role === 'admin') {
+        $is_moderator = true;
+    }
+}
+
 // Fetch user's attempt history
 $stmt = $pdo->prepare("
     SELECT 
