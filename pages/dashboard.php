@@ -126,6 +126,81 @@ sidebarShow.addEventListener('click', function() {
   sidebarHide.setAttribute('aria-expanded', 'true');
   sidebarShow.setAttribute('aria-expanded', 'false');
 });
+
+// Add this new code for formula loading
+let offset = 0;
+const limit = 9;
+let loading = false;
+let endReached = false;
+
+function createCard(formula) {
+  if (!formula) {
+    return `
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">No Data</h5>
+            <p class="card-text">No formula available.</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="col-md-4 mb-4">
+      <a href="formula.php?id=${formula.id}" class="card-link">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${formula.title}</h5>
+            <p class="card-text">${formula.formula_text}</p>
+            <p class="card-text"><small class="text-muted">Score: ${formula.score}</small></p>
+          </div>
+        </div>
+      </a>
+    </div>
+  `;
+}
+
+function loadFormulas() {
+  if (loading || endReached) return;
+  
+  loading = true;
+  document.getElementById('loading').style.display = 'block';
+
+  fetch(`fetch_formulas.php?offset=${offset}&limit=${limit}`)
+    .then(res => res.json())
+    .then(data => {
+      let row = document.getElementById('formula-row');
+      if (data.formulas.length === 0 && offset === 0) {
+        for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
+        endReached = true;
+      } else if (data.formulas.length === 0) {
+        endReached = true;
+      } else {
+        let cards = data.formulas.map(createCard);
+        while (cards.length % 3 !== 0) cards.push(createCard(null));
+        row.innerHTML += cards.join('');
+        offset += data.formulas.length;
+        if (data.formulas.length < limit) endReached = true;
+      }
+    })
+    .catch(err => console.error('Error loading formulas:', err))
+    .finally(() => {
+      loading = false;
+      document.getElementById('loading').style.display = 'none';
+    });
+}
+
+// Initial load
+loadFormulas();
+
+// Infinite scroll
+window.addEventListener('scroll', () => {
+  if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
+    loadFormulas();
+  }
+});
 </script>
 
 <?php include '../includes/footer.php'; ?>
