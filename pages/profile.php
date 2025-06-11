@@ -18,7 +18,9 @@ $user = $stmt->fetch();
 <div class="container-fluid">
   <div class="d-flex" id="dashboard-flex">
     <!-- Sidebar -->
-    <nav id="sidebar">...</nav>
+    <nav id="sidebar">
+      <?php include '../includes/sidebar.php'; ?>
+    </nav>
     <!-- Main content -->
     <main id="main-content" class="flex-grow-1 px-md-4 py-4">
       <div class="container" style="max-width: 1000px;">

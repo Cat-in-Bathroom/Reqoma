@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
         <!-- Sidebar -->
-        <nav id="sidebar">...</nav>
+        <?php include '../includes/sidebar.php'; ?>
         <!-- Main content -->
         <main id="main-content" class="flex-grow-1 px-md-4 py-4">
             <div class="container" style="max-width: 1000px;">

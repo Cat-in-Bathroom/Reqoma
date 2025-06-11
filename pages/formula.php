@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require_once __DIR__ . '/../includes/config.php';
@@ -94,3 +93,4 @@ include '../includes/header.php';
 </div>
 
 <?php include '../includes/footer.php'; ?>
+<?php include '../includes/sidebar.php'; ?>
