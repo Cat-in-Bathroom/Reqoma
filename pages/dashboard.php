@@ -23,29 +23,15 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php include '../includes/auth.php'; ?>
 <?php include '../includes/header.php'; ?>
-<?php include '../includes/sidebar.php'; ?>
-
-<?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-?>
 
 <div class="container-fluid">
   <div class="d-flex" id="dashboard-flex">
-    <!-- Main content -->
+    <?php include '../includes/sidebar.php'; ?>
     <main id="main-content" class="flex-grow-1 px-md-4 py-4">
       <div class="container" style="max-width: 1000px;">
-        <h2>Welcome to the Dashboard</h2>
+        <h2 class="mb-4">Welcome to the Dashboard</h2>
         <div id="formula-row" class="row g-4">
-          <div class="col-md-4 mb-4">
-            <div class="card formula-card h-100">
-              <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
-                <h5 class="card-title">No Data</h5>
-                <p class="card-text">No formula available.</p>
-              </div>
-            </div>
-          </div>
+          <!-- Cards here -->
         </div>
         <div id="loading" class="text-center my-3" style="display:none;">
           <div class="spinner-border text-primary"></div>
