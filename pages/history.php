@@ -1,11 +1,11 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/config.php';
+
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
 }
-
-require_once __DIR__ . '/../includes/config.php';
 
 // Check if the user is a moderator or admin
 $is_moderator = false;
@@ -39,19 +39,72 @@ include '../includes/header.php';
 
 <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
-        <!-- Include the sidebar -->
+        <!-- Sidebar -->
         <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
-            <!-- ... sidebar content ... -->
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <h4 class="text-white mb-0 fs-5">Dashboard</h4>
+                <button id="sidebarHide" 
+                        class="btn btn-outline-light btn-sm"
+                        type="button"
+                        aria-label="Hide Sidebar"
+                        aria-controls="sidebar"
+                        aria-expanded="true">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <hr class="bg-secondary my-2">
+            <div class="sidebar-content">
+                <ul class="nav nav-pills flex-column gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="profile.php">
+                            <i class="bi bi-person"></i> My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="settings.php">
+                            <i class="bi bi-gear"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="leaderboard.php">
+                            <i class="bi bi-trophy"></i> Leaderboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="submit_formula.php">
+                            <i class="bi bi-plus-circle"></i> Submit Formula
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="history.php">
+                            <i class="bi bi-clock-history"></i> History
+                        </a>
+                    </li>
+                    <?php if ($is_moderator): ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="moderate_formulas.php">
+                            <i class="bi bi-shield-check"></i> Moderate Formulas
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </nav>
 
         <!-- Floating show button -->
-        <button id="sidebarShow" class="btn btn-primary btn-sm sidebar-show-btn" ...>
+        <button id="sidebarShow"
+                class="btn btn-primary btn-sm sidebar-show-btn"
+                type="button"
+                aria-label="Show Sidebar"
+                aria-controls="sidebar"
+                aria-expanded="false"
+                style="display:none;">
             <i class="bi bi-list"></i>
         </button>
 
         <!-- Main content -->
         <main id="main-content" class="flex-grow-1 px-md-4 py-4">
-            <div class="container mt-5">
+            <div class="container" style="max-width: 1000px;">
                 <h2>Your Formula History</h2>
                 
                 <?php if (empty($attempts)): ?>
@@ -64,7 +117,7 @@ include '../includes/header.php';
                         <?php foreach ($attempts as $attempt): ?>
                             <div class="col-md-4 mb-4">
                                 <div class="card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
-                                    <div class="card-body">
+                                    <div class="card-body" style="height: 200px;">
                                         <h5 class="card-title"><?= htmlspecialchars($attempt['title']) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($attempt['formula_text']) ?></p>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -84,11 +137,35 @@ include '../includes/header.php';
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
-                
-                <a href="dashboard.php" class="btn btn-primary mt-3">Back to Dashboard</a>
             </div>
         </main>
     </div>
 </div>
+
+<!-- Add the sidebar toggle JavaScript -->
+<script>
+const dashboardFlex = document.getElementById('dashboard-flex');
+const sidebar = document.getElementById('sidebar');
+const sidebarHide = document.getElementById('sidebarHide');
+const sidebarShow = document.getElementById('sidebarShow');
+
+sidebarHide.addEventListener('click', function() {
+    sidebar.classList.remove('sidebar-visible');
+    sidebar.classList.add('sidebar-hidden');
+    sidebarShow.style.display = 'block';
+    dashboardFlex.classList.add('hide-sidebar');
+    sidebarHide.setAttribute('aria-expanded', 'false');
+    sidebarShow.setAttribute('aria-expanded', 'true');
+});
+
+sidebarShow.addEventListener('click', function() {
+    sidebar.classList.remove('sidebar-hidden');
+    sidebar.classList.add('sidebar-visible');
+    sidebarShow.style.display = 'none';
+    dashboardFlex.classList.remove('hide-sidebar');
+    sidebarHide.setAttribute('aria-expanded', 'true');
+    sidebarShow.setAttribute('aria-expanded', 'false');
+});
+</script>
 
 <?php include '../includes/footer.php'; ?>
