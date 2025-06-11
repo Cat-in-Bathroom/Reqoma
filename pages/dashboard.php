@@ -93,7 +93,7 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- Main content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
         <h2>Welcome to the Dashboard</h2>
-        <div id="formula-row" class="row justify-content-center align-items-stretch">
+        <div id="formula-row" class="row justify-content-center">
           <!-- Cards will be loaded here -->
         </div>
         <div id="loading" class="text-center my-3" style="display:none;">
@@ -109,9 +109,9 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
         function createCard(formula) {
           if (!formula) {
             return `
-              <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                <div class="card h-100 border-secondary text-center">
-                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <div class="col-md-4 mb-4">
+                <div class="card border-secondary text-center">
+                  <div class="card-body">
                     <h5 class="card-title text-muted">No Data</h5>
                     <p class="card-text text-muted">No formula available.</p>
                   </div>
@@ -120,9 +120,9 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
             `;
           }
           return `
-            <div class="col-md-4 mb-4 d-flex align-items-stretch">
+            <div class="col-md-4 mb-4">
               <a href="formula.php?id=${formula.id}" class="card-link w-100">
-                <div class="card h-100">
+                <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${formula.title}</h5>
                     <p class="card-text">${formula.formula_text}</p>

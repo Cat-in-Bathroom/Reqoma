@@ -1,5 +1,4 @@
 <?php
-<?php
 require_once __DIR__ . '/../includes/config.php';
 
 $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
