@@ -34,21 +34,30 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
     body {
       min-height: 100vh;
     }
-    .sidebar {
+    #dashboard-flex {
+      display: flex;
       min-height: 100vh;
+    }
+    .sidebar {
+      width: 260px;
+      min-width: 200px;
+      max-width: 300px;
+      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
       background-color: #343a40;
       color: white;
-      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
-      opacity: 1;
     }
     .sidebar-hidden {
-      margin-left: -260px; /* Adjust to sidebar width */
+      margin-left: -260px;
       opacity: 0;
       pointer-events: none;
     }
     .sidebar-visible {
       margin-left: 0;
       opacity: 1;
+    }
+    #main-content {
+      flex-grow: 1;
+      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1);
     }
     .sidebar a {
       color: white;
@@ -66,20 +75,38 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
     .card-link:hover {
       text-decoration: underline;
     }
+    .sidebar-show-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1051;
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 80vw;
+        min-width: 0;
+        max-width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1050;
+      }
+      #main-content {
+        padding-left: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar Toggle Button (visible on all screens now) -->
-      <button id="sidebarToggle" class="btn btn-secondary btn-sm position-absolute top-0 start-0 m-3" type="button" style="z-index:1051;">
-        <i class="bi bi-list"></i>
-      </button>
+    <div class="d-flex" id="dashboard-flex">
       <!-- Sidebar -->
-      <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3 sidebar-visible">
+      <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h4 class="text-white mb-0">Dashboard</h4>
-          <button id="sidebarToggle" class="btn btn-secondary btn-sm" type="button" title="Toggle Sidebar">
+          <button id="sidebarHide" class="btn btn-secondary btn-sm" type="button" title="Hide Sidebar" aria-label="Hide Sidebar" aria-controls="sidebar" aria-expanded="true">
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
@@ -109,8 +136,13 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
           <?php endif; ?>
         </ul>
       </nav>
+      <!-- Floating show button (hidden by default) -->
+      <button id="sidebarShow" class="btn btn-secondary btn-sm sidebar-show-btn"
+              type="button" aria-label="Show Sidebar" aria-controls="sidebar" aria-expanded="false">
+        <i class="bi bi-list"></i>
+      </button>
       <!-- Main content -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+      <main id="main-content" class="flex-grow-1 px-md-4 py-4">
         <h2>Welcome to the Dashboard</h2>
         <div id="formula-row" class="row justify-content-center">
           <!-- Cards will be loaded here -->
@@ -120,94 +152,103 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </main>
       <script>
-        let offset = 0;
-        const limit = 9; // Load 9 at a time (3 rows)
-        let loading = false;
-        let endReached = false;
+        (function() {
+  // Sidebar toggle logic
+  const sidebar = document.getElementById('sidebar');
+  const sidebarHide = document.getElementById('sidebarHide');
+  const sidebarShow = document.getElementById('sidebarShow');
 
-        function createCard(formula) {
-          if (!formula) {
-            return `
-              <div class="col-md-4 mb-4">
-                <div class="card border-secondary text-center">
-                  <div class="card-body">
-                    <h5 class="card-title text-muted">No Data</h5>
-                    <p class="card-text text-muted">No formula available.</p>
-                  </div>
-                </div>
-              </div>
-            `;
-          }
-          return `
-            <div class="col-md-4 mb-4">
-              <a href="formula.php?id=${formula.id}" class="card-link w-100">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">${formula.title}</h5>
-                    <p class="card-text">${formula.formula_text}</p>
-                    <p class="card-text"><small class="text-muted">Score: ${formula.score ?? 'N/A'}</small></p>
-                  </div>
-                </div>
-              </a>
+  sidebarHide.addEventListener('click', function() {
+    sidebar.classList.remove('sidebar-visible');
+    sidebar.classList.add('sidebar-hidden');
+    sidebarShow.style.display = 'block';
+    sidebarHide.setAttribute('aria-expanded', 'false');
+    sidebarShow.setAttribute('aria-expanded', 'true');
+  });
+
+  sidebarShow.addEventListener('click', function() {
+    sidebar.classList.remove('sidebar-hidden');
+    sidebar.classList.add('sidebar-visible');
+    sidebarShow.style.display = 'none';
+    sidebarHide.setAttribute('aria-expanded', 'true');
+    sidebarShow.setAttribute('aria-expanded', 'false');
+  });
+})();
+
+(function() {
+  // Infinite scroll logic
+  let offset = 0;
+  const limit = 9;
+  let loading = false;
+  let endReached = false;
+
+  function createCard(formula) {
+    if (!formula) {
+      return `
+        <div class="col-md-4 mb-4">
+          <div class="card border-secondary text-center">
+            <div class="card-body">
+              <h5 class="card-title text-muted">No Data</h5>
+              <p class="card-text text-muted">No formula available.</p>
             </div>
-          `;
+          </div>
+        </div>
+      `;
+    }
+    return `
+      <div class="col-md-4 mb-4">
+        <a href="formula.php?id=${formula.id}" class="card-link w-100">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${formula.title}</h5>
+              <p class="card-text">${formula.formula_text}</p>
+              <p class="card-text"><small class="text-muted">Score: ${formula.score ?? 'N/A'}</small></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    `;
+  }
+
+  function loadFormulas() {
+    if (loading || endReached) return;
+    loading = true;
+    document.getElementById('loading').style.display = 'block';
+    fetch(`fetch_formulas.php?offset=${offset}&limit=${limit}`)
+      .then(res => res.json())
+      .then(data => {
+        let row = document.getElementById('formula-row');
+        if (data.formulas.length === 0 && offset === 0) {
+          // No data at all, show 3 placeholders
+          for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
+          endReached = true;
+        } else if (data.formulas.length === 0) {
+          endReached = true;
+        } else {
+          // Always fill up to a multiple of 3 for nice rows
+          let cards = data.formulas.map(createCard);
+          while (cards.length % 3 !== 0) cards.push(createCard(null));
+          row.innerHTML += cards.join('');
+          offset += data.formulas.length;
+          if (data.formulas.length < limit) endReached = true;
         }
+      })
+      .finally(() => {
+        loading = false;
+        document.getElementById('loading').style.display = 'none';
+      });
+  }
 
-        function loadFormulas() {
-          if (loading || endReached) return;
-          loading = true;
-          document.getElementById('loading').style.display = 'block';
-          fetch(`fetch_formulas.php?offset=${offset}&limit=${limit}`)
-            .then(res => res.json())
-            .then(data => {
-              let row = document.getElementById('formula-row');
-              if (data.formulas.length === 0 && offset === 0) {
-                // No data at all, show 3 placeholders
-                for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
-                endReached = true;
-              } else if (data.formulas.length === 0) {
-                endReached = true;
-              } else {
-                // Always fill up to a multiple of 3 for nice rows
-                let cards = data.formulas.map(createCard);
-                while (cards.length % 3 !== 0) cards.push(createCard(null));
-                row.innerHTML += cards.join('');
-                offset += data.formulas.length;
-                if (data.formulas.length < limit) endReached = true;
-              }
-            })
-            .finally(() => {
-              loading = false;
-              document.getElementById('loading').style.display = 'none';
-            });
-        }
+  // Initial load
+  loadFormulas();
 
-        // Initial load
-        loadFormulas();
-
-        // Infinite scroll
-        window.addEventListener('scroll', () => {
-          if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
-            loadFormulas();
-          }
-        });
-
-        // Sidebar toggle for all screen sizes
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarShow = document.getElementById('sidebarShow');
-
-        sidebarToggle.addEventListener('click', function() {
-          sidebar.classList.toggle('sidebar-hidden');
-          sidebar.classList.toggle('sidebar-visible');
-          sidebarShow.style.display = sidebar.classList.contains('sidebar-hidden') ? 'block' : 'none';
-        });
-
-        sidebarShow.addEventListener('click', function() {
-          sidebar.classList.remove('sidebar-hidden');
-          sidebar.classList.add('sidebar-visible');
-          sidebarShow.style.display = 'none';
-        });
+  // Infinite scroll
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
+      loadFormulas();
+    }
+  });
+})();
       </script>
     </div>
   </div>
