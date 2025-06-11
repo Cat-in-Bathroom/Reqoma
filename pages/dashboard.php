@@ -60,12 +60,12 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar Toggle Button (visible on mobile) -->
-      <button id="sidebarToggle" class="btn btn-secondary mb-3 d-md-none" type="button">
+      <!-- Sidebar Toggle Button (visible on all screens now) -->
+      <button id="sidebarToggle" class="btn btn-secondary mb-3" type="button">
         <i class="bi bi-list"></i> Menu
       </button>
       <!-- Sidebar -->
-      <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3 d-none d-md-block">
+      <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3">
         <h4 class="text-white mb-4">Dashboard</h4>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
@@ -176,7 +176,7 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
           }
         });
 
-        // Sidebar toggle for mobile
+        // Sidebar toggle for all screen sizes
         document.getElementById('sidebarToggle').addEventListener('click', function() {
           const sidebar = document.getElementById('sidebar');
           sidebar.classList.toggle('d-none');
