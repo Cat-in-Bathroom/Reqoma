@@ -50,7 +50,7 @@ footer {
   padding: 1rem;             /* Remove padding-bottom, use single padding */
   margin: -1rem -1rem 0;     /* Compensate for sidebar's p-3 */
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  width: calc(100% + 2rem); /* Compensate for negative margin */
+  width: 260px; /* Make sure the header stretches to the visible strip */
 }
 
 .sidebar-content {
@@ -60,14 +60,39 @@ footer {
 }
 
 .sidebar-hidden {
-  margin-left: -260px;
-  opacity: 0;
-  pointer-events: none;
+  margin-left: -228px; /* 260px (full width) - 32px (strip) */
+  opacity: 1;
+  pointer-events: auto;
+  width: 260px;
 }
 
 .sidebar-visible {
   margin-left: 0;
   opacity: 1;
+}
+
+#sidebar {
+  transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+}
+
+#sidebarHide {
+  position: absolute;
+  left: 228px; /* 260px - 32px */
+  top: 16px;
+  z-index: 1100;
+  background: #212529;
+  border-radius: 0 6px 6px 0;
+  border: none;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  transition: left 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+.hide-sidebar #sidebarHide {
+  left: 0;
+}
+
+.hide-sidebar .sidebar {
+  box-shadow: none;
 }
 
 #main-content {
