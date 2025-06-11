@@ -88,10 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
-        <!-- Sidebar -->
-        <nav id="sidebar">
-            <!-- Sidebar content here -->
-        </nav>
+        <?php include '../includes/sidebar.php'; ?>
+        <!-- Floating show button -->
+        <button id="sidebarShow" class="btn btn-primary" style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
+            <i class="fas fa-bars"></i>
+        </button>
         <!-- Main content -->
         <main id="main-content" class="flex-grow-1 px-md-4 py-4">
             <div class="container" style="max-width: 1000px;">
