@@ -24,15 +24,10 @@ footer {
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
-  background-color: #212529 !important;
-  color: #fff;
+  background: #212529;
   z-index: 1050;
-  transition: margin-left 0.7s ease, opacity 0.7s ease;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-  min-width: 48px;
+  transition: margin-left 0.7s ease;
+  overflow: visible;
 }
 
 .sidebar-header {
@@ -54,29 +49,28 @@ footer {
 
 /* Sidebar nav links */
 .sidebar .nav-link {
-  color: #fff !important;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 .sidebar .nav-link.active,
 .sidebar .nav-link:focus,
 .sidebar .nav-link:hover {
-  background-color: #495057 !important;
-  color: #fff !important;
+  background: #495057;
+  color: #fff;
 }
 
 /* Sidebar hide/show logic */
 .sidebar-visible {
   margin-left: 0;
-  opacity: 1;
 }
 .sidebar-hidden {
   margin-left: -212px; /* 260px - 48px = 48px strip */
-  opacity: 1;
-  pointer-events: auto;
-  width: 260px;
-  background: #212529;
-  overflow: visible;
 }
 
 /* Main content margin shifts */
@@ -170,37 +164,19 @@ footer {
 
 /* Show only icons when sidebar is collapsed */
 .sidebar.sidebar-hidden .nav-link i {
-  margin-right: 0;
   font-size: 1.5rem;
-  display: inline-block;
+  margin-right: 0;
   color: #fff !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-.sidebar.sidebar-hidden .nav-link span,
 .sidebar.sidebar-hidden .nav-link .sidebar-label {
   display: none !important;
 }
 
+/* Make sure the clickable area fills the strip */
 .sidebar.sidebar-hidden .nav-link {
-  text-align: center;
-  padding-left: 0;
-  padding-right: 0;
-  justify-content: center;
-  min-width: 48px;
-  width: 48px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-
-/* Normal sidebar icon/text */
-.sidebar .nav-link i {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-  vertical-align: middle;
-}
-.sidebar .nav-link .sidebar-label {
-  vertical-align: middle;
+  height: 48px;
+  line-height: 48px;
 }
