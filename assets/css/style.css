@@ -57,6 +57,7 @@ footer {
   transition: background 0.2s;
   width: 100%;
   box-sizing: border-box;
+  height: 48px;
 }
 .sidebar .nav-link.active,
 .sidebar .nav-link:focus,
@@ -162,7 +163,53 @@ footer {
   margin: 0 auto;
 }
 
-/* Show only icons when sidebar is collapsed */
+/* Sidebar collapsed: only show a 48px strip with icons centered and clickable */
+.sidebar {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 56px);
+  background: #212529;
+  z-index: 1050;
+  transition: margin-left 0.7s ease;
+  overflow: visible;
+}
+
+.sidebar-visible {
+  margin-left: 0;
+}
+
+.sidebar-hidden {
+  margin-left: -212px; /* 260px - 48px = 48px strip */
+}
+
+/* Nav links: normal */
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+/* Nav links: collapsed */
+.sidebar.sidebar-hidden .nav-link {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+  overflow: visible;
+  background: none;
+}
+
+/* Only show icons in collapsed state */
 .sidebar.sidebar-hidden .nav-link i {
   font-size: 1.5rem;
   margin-right: 0;
@@ -179,4 +226,20 @@ footer {
 .sidebar.sidebar-hidden .nav-link {
   height: 48px;
   line-height: 48px;
+}
+
+/* Highlight on hover/click */
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+  background: #495057;
+  color: #fff;
+}
+
+/* Toggle icon rotates when collapsed */
+#sidebarToggle i {
+  transition: transform 0.3s;
+}
+.sidebar.sidebar-hidden #sidebarToggle i {
+  transform: rotate(180deg);
 }

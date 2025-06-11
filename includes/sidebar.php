@@ -1,18 +1,23 @@
 <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
-  <div class="sidebar-header d-flex align-items-center justify-content-between">
+  <div class="sidebar-header d-flex align-items-center">
     <h4 class="text-white mb-0 fs-5">Dashboard</h4>
-    <button id="sidebarToggle"
-            class="sidebar-toggle-btn"
-            type="button"
-            aria-label="Toggle Sidebar"
-            aria-controls="sidebar"
-            aria-expanded="true">
-      <i class="bi bi-chevron-left"></i>
-    </button>
   </div>
   <hr class="bg-secondary my-2">
   <div class="sidebar-content">
     <ul class="nav nav-pills flex-column gap-1">
+      <!-- Toggle button as a nav item -->
+      <li class="nav-item">
+        <button id="sidebarToggle"
+                class="nav-link btn btn-link text-white d-flex justify-content-center align-items-center"
+                type="button"
+                aria-label="Toggle Sidebar"
+                aria-controls="sidebar"
+                aria-expanded="true"
+                style="width:100%;height:48px;">
+          <i class="bi bi-chevron-left"></i>
+          <span class="sidebar-label ms-2">Collapse</span>
+        </button>
+      </li>
       <li class="nav-item">
         <a class="nav-link text-white <?php if(basename($_SERVER['PHP_SELF']) === 'dashboard.php') echo 'active'; ?>" href="dashboard.php">
           <i class="bi bi-house"></i> <span class="sidebar-label">Home</span>
