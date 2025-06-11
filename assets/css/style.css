@@ -56,6 +56,7 @@ footer {
   width: 100%;
   box-sizing: border-box;
   transition: background 0.2s;
+  border-radius: 0;
 }
 .sidebar .nav-link i { margin-right: 0.5rem; }
 .sidebar .nav-link.active,
@@ -168,7 +169,6 @@ footer {
 }
 
 .sidebar-visible { margin-left: 0; }
-
 .sidebar-hidden { margin-left: -212px; } /* 48px strip */
 
 /* Nav links: normal */
@@ -180,7 +180,11 @@ footer {
   width: 100%;
   box-sizing: border-box;
   transition: background 0.2s;
+  border-radius: 0;
 }
+.sidebar .nav-link i { margin-right: 0.5rem; }
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover { background: #495057; color: #fff; }
 
 /* Nav links: collapsed */
 .sidebar.sidebar-hidden .nav-link {
@@ -194,7 +198,6 @@ footer {
   background: none !important;
   height: 48px !important;
   line-height: 48px !important;
-  border-radius: 0 !important;
 }
 .sidebar.sidebar-hidden .nav-link i {
   font-size: 1.5rem !important;
@@ -203,14 +206,6 @@ footer {
 }
 .sidebar.sidebar-hidden .nav-link .sidebar-label {
   display: none !important;
-}
-
-/* Highlight on hover/click */
-.sidebar .nav-link.active,
-.sidebar .nav-link:hover,
-.sidebar .nav-link:focus {
-  background: #495057;
-  color: #fff;
 }
 
 /* Toggle icon rotates when collapsed */
