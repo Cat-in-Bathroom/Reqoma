@@ -63,34 +63,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$attempt) {
 include '../includes/header.php';
 ?>
 
-<div class="container mt-5">
-    <h2><?= htmlspecialchars($formula['title']) ?></h2>
-    <div class="card mb-3">
-        <div class="card-body">
-            <p><strong>Formula:</strong></p>
-            <pre><?= htmlspecialchars($formula['formula_text']) ?></pre>
-            <p><strong>Score:</strong> <?= intval($formula['score']) ?></p>
-            <?php if ($message) echo $message; ?>
+<div class="container-fluid">
+    <div class="d-flex" id="dashboard-flex">
+        <?php include '../includes/sidebar.php'; ?>
+        <main id="main-content" class="container mt-5">
+            <h2><?= htmlspecialchars($formula['title']) ?></h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p><strong>Formula:</strong></p>
+                    <pre><?= htmlspecialchars($formula['formula_text']) ?></pre>
+                    <p><strong>Score:</strong> <?= intval($formula['score']) ?></p>
+                    <?php if ($message) echo $message; ?>
 
-            <?php if (!$attempt): ?>
-                <form method="post" class="mb-3">
-                    <div class="mb-3">
-                        <label for="answer" class="form-label">Your Answer:</label>
-                        <input type="text" name="answer" id="answer" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Answer</button>
-                </form>
-            <?php endif; ?>
+                    <?php if (!$attempt): ?>
+                        <form method="post" class="mb-3">
+                            <div class="mb-3">
+                                <label for="answer" class="form-label">Your Answer:</label>
+                                <input type="text" name="answer" id="answer" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Answer</button>
+                        </form>
+                    <?php endif; ?>
 
-            <?php if ($show_solution): ?>
-                <div class="alert alert-info mt-3">
-                    <strong>Solution:</strong> <?= nl2br(htmlspecialchars($formula['solution_text'])) ?>
+                    <?php if ($show_solution): ?>
+                        <div class="alert alert-info mt-3">
+                            <strong>Solution:</strong> <?= nl2br(htmlspecialchars($formula['solution_text'])) ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
-        </div>
+            </div>
+            <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+        </main>
     </div>
-    <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
 </div>
 
 <?php include '../includes/footer.php'; ?>
-<?php include '../includes/sidebar.php'; ?>

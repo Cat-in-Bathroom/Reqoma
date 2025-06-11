@@ -10,38 +10,28 @@ footer {
   text-align: center;
 }
 
+/* Sidebar layout */
 #dashboard-flex {
   position: relative;
   display: flex;
   min-height: 100vh;
 }
 
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 56px; /* Match navbar height */
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
-  background-color: #212529 !important; /* Force dark background */
+  background-color: #212529 !important;
   color: #fff;
   z-index: 1050;
   transition: margin-left 0.7s ease, opacity 0.7s ease;
-  display: flex;          /* Add this */
-  flex-direction: column; /* Add this */
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid rgba(255,255,255,0.1);
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-}
-
-/* Ensure nav links are visible */
-.sidebar .nav-link {
-  color: #fff !important;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.2s;
-}
-
-.sidebar .nav-link:hover {
-  background-color: rgba(255,255,255,0.1);
-  color: #fff !important;
 }
 
 .sidebar-header {
@@ -49,43 +39,49 @@ footer {
   top: 0;
   background: #212529;
   z-index: 2;
-  padding: 1rem;             /* Remove padding-bottom, use single padding */
-  margin: -1rem -1rem 0;     /* Compensate for sidebar's p-3 */
+  padding: 1rem;
+  margin: -1rem -1rem 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  width: 260px; /* Make sure the header stretches to the visible strip */
+  width: 260px;
 }
 
 .sidebar-content {
   overflow-y: auto;
   flex: 1;
-  margin-top: 1rem;        /* Add space after header */
+  margin-top: 1rem;
 }
 
-/* Sidebar and main content transitions */
-.sidebar,
-#sidebar,
-#main-content {
-  transition: margin-left 0.7s ease, opacity 0.7s ease;
+/* Sidebar nav links */
+.sidebar .nav-link {
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s;
+}
+.sidebar .nav-link.active,
+.sidebar .nav-link:focus,
+.sidebar .nav-link:hover {
+  background-color: #495057 !important;
+  color: #fff !important;
 }
 
-.sidebar-hidden {
-  margin-left: -228px; /* 260px (full width) - 32px (strip) */
-  opacity: 1;
-  pointer-events: auto;
-  width: 260px;
-}
-
+/* Sidebar hide/show logic */
 .sidebar-visible {
   margin-left: 0;
   opacity: 1;
+}
+.sidebar-hidden {
+  margin-left: -228px; /* 260px - 32px strip */
+  opacity: 1;
+  pointer-events: auto;
+  width: 260px;
 }
 
 /* Main content margin shifts */
 #main-content {
   margin-left: 260px;
   margin-top: 56px;
+  transition: margin-left 0.7s ease;
 }
-
 .hide-sidebar #main-content {
   margin-left: 32px;
 }
@@ -93,7 +89,7 @@ footer {
 /* Sidebar show button */
 .sidebar-show-btn {
   position: absolute;
-  top: 72px; /* Align with sidebar header */
+  top: 72px;
   left: 0;
   z-index: 1101;
   width: 32px;
@@ -109,13 +105,10 @@ footer {
   padding: 0;
   transition: left 0.7s ease;
 }
-
 .hide-sidebar .sidebar-show-btn {
   display: flex;
   left: 0;
 }
-
-/* Optional: Hide the button when sidebar is visible */
 .sidebar-visible ~ .sidebar-show-btn {
   display: none !important;
 }
@@ -132,11 +125,11 @@ footer {
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
   transition: left 0.7s ease;
 }
-
 .hide-sidebar #sidebarHide {
   left: 0;
 }
 
+/* Responsive: sidebar overlays content on small screens */
 @media (max-width: 991.98px) {
   .sidebar {
     width: 80vw;
@@ -145,47 +138,26 @@ footer {
     top: 56px;
     left: 0;
     height: calc(100vh - 56px);
+    margin-left: 0 !important;
   }
   #main-content {
     margin-left: 0 !important;
   }
 }
 
-.navbar {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  min-height: 56px;
-}
-
-/* Make sure all sidebar parts have the same background */
-.sidebar-header,
-.sidebar-content,
-.sidebar .nav-link {
-  background-color: #212529;
-}
-
-/* Fix nav links hover state */
-.sidebar .nav-link:hover {
-  background-color: #495057;
-}
-
-/* Card styles */
+/* Card styles (unchanged) */
 .card {
   border: 1px solid rgba(0,0,0,.125);
   transition: transform 0.2s;
 }
-
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 .formula-card .card-body {
   height: 200px;
   overflow: hidden;
 }
-
-/* Container max-width for cards */
 #main-content .container {
   max-width: 1000px;
   margin: 0 auto;

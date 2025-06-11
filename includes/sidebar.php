@@ -48,6 +48,7 @@
     </ul>
   </div>
 </nav>
+<!-- Show button: always after sidebar, never inside -->
 <button id="sidebarShow"
         class="sidebar-show-btn"
         type="button"
