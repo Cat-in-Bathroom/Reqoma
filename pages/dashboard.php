@@ -93,47 +93,86 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- Main content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
         <h2>Welcome to the Dashboard</h2>
-        <div class="row justify-content-center">
-          <?php
-            $cards = [];
-            if (!empty($formulas)) {
-              foreach ($formulas as $formula) {
-                $cards[] = '
-                  <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                    <a href="formula.php?id=' . $formula['id'] . '" class="card-link w-100">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h5 class="card-title">' . htmlspecialchars($formula['title']) . '</h5>
-                          <p class="card-text">' . nl2br(htmlspecialchars($formula['formula_text'])) . '</p>
-                          <p class="card-text"><small class="text-muted">Score: ' . (isset($formula['score']) ? intval($formula['score']) : 'N/A') . '</small></p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                ';
-                if (count($cards) === 3) break; // Only show 3 cards per row
-              }
-            }
-            // Fill up to 3 cards with placeholders if needed
-            while (count($cards) < 3) {
-              $cards[] = '
-                <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                  <div class="card h-100 border-secondary text-center">
-                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                      <h5 class="card-title text-muted">No Data</h5>
-                      <p class="card-text text-muted">No formula available.</p>
-                    </div>
-                  </div>
-                </div>
-              ';
-            }
-            // Output the cards
-            foreach ($cards as $card) {
-              echo $card;
-            }
-          ?>
+        <div id="formula-row" class="row justify-content-center align-items-stretch">
+          <!-- Cards will be loaded here -->
+        </div>
+        <div id="loading" class="text-center my-3" style="display:none;">
+          <div class="spinner-border text-primary"></div>
         </div>
       </main>
+      <script>
+        let offset = 0;
+        const limit = 9; // Load 9 at a time (3 rows)
+        let loading = false;
+        let endReached = false;
+
+        function createCard(formula) {
+          if (!formula) {
+            return `
+              <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                <div class="card h-100 border-secondary text-center">
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <h5 class="card-title text-muted">No Data</h5>
+                    <p class="card-text text-muted">No formula available.</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+          return `
+            <div class="col-md-4 mb-4 d-flex align-items-stretch">
+              <a href="formula.php?id=${formula.id}" class="card-link w-100">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">${formula.title}</h5>
+                    <p class="card-text">${formula.formula_text}</p>
+                    <p class="card-text"><small class="text-muted">Score: ${formula.score ?? 'N/A'}</small></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        }
+
+        function loadFormulas() {
+          if (loading || endReached) return;
+          loading = true;
+          document.getElementById('loading').style.display = 'block';
+          fetch(`fetch_formulas.php?offset=${offset}&limit=${limit}`)
+            .then(res => res.json())
+            .then(data => {
+              let row = document.getElementById('formula-row');
+              if (data.formulas.length === 0 && offset === 0) {
+                // No data at all, show 3 placeholders
+                for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
+                endReached = true;
+              } else if (data.formulas.length === 0) {
+                endReached = true;
+              } else {
+                // Always fill up to a multiple of 3 for nice rows
+                let cards = data.formulas.map(createCard);
+                while (cards.length % 3 !== 0) cards.push(createCard(null));
+                row.innerHTML += cards.join('');
+                offset += data.formulas.length;
+                if (data.formulas.length < limit) endReached = true;
+              }
+            })
+            .finally(() => {
+              loading = false;
+              document.getElementById('loading').style.display = 'none';
+            });
+        }
+
+        // Initial load
+        loadFormulas();
+
+        // Infinite scroll
+        window.addEventListener('scroll', () => {
+          if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
+            loadFormulas();
+          }
+        });
+      </script>
     </div>
   </div>
 
