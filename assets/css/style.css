@@ -31,7 +31,7 @@ footer {
 
 .sidebar-content {
   overflow-y: auto;
-  height: calc(100vh - 56px - 56px); /* sidebar height minus header height (adjust if needed) */
+  height: calc(100vh - 56px - 56px); /* Adjust second 56px to actual .sidebar-header height */
 }
 
 .sidebar-header {

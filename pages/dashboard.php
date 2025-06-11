@@ -28,7 +28,7 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex" id="dashboard-flex">
       <!-- Sidebar -->
       <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
-        <div class="sidebar-header d-flex justify-content-between align-items-center mb-4">
+        <div class="sidebar-header d-flex justify-content-between align-items-center">
           <h4 class="text-white mb-0">Dashboard</h4>
           <button id="sidebarHide" class="btn btn-secondary btn-sm" type="button" title="Hide Sidebar" aria-label="Hide Sidebar" aria-controls="sidebar" aria-expanded="true">
             <i class="bi bi-x-lg"></i>
