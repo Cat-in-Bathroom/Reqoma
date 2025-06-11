@@ -38,6 +38,17 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
       min-height: 100vh;
       background-color: #343a40;
       color: white;
+      transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+      opacity: 1;
+    }
+    .sidebar-hidden {
+      margin-left: -260px; /* Adjust to sidebar width */
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sidebar-visible {
+      margin-left: 0;
+      opacity: 1;
     }
     .sidebar a {
       color: white;
@@ -61,12 +72,17 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar Toggle Button (visible on all screens now) -->
-      <button id="sidebarToggle" class="btn btn-secondary btn-sm" type="button">
+      <button id="sidebarToggle" class="btn btn-secondary btn-sm position-absolute top-0 start-0 m-3" type="button" style="z-index:1051;">
         <i class="bi bi-list"></i>
       </button>
       <!-- Sidebar -->
-      <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3">
-        <h4 class="text-white mb-4">Dashboard</h4>
+      <nav id="sidebar" class="col-md-3 col-lg-2 sidebar p-3 sidebar-visible">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="text-white mb-0">Dashboard</h4>
+          <button id="sidebarToggle" class="btn btn-secondary btn-sm" type="button" title="Toggle Sidebar">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
             <a class="nav-link" href="profile.php">My Profile</a>
@@ -177,9 +193,20 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
         });
 
         // Sidebar toggle for all screen sizes
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-          const sidebar = document.getElementById('sidebar');
-          sidebar.classList.toggle('d-none');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarShow = document.getElementById('sidebarShow');
+
+        sidebarToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('sidebar-hidden');
+          sidebar.classList.toggle('sidebar-visible');
+          sidebarShow.style.display = sidebar.classList.contains('sidebar-hidden') ? 'block' : 'none';
+        });
+
+        sidebarShow.addEventListener('click', function() {
+          sidebar.classList.remove('sidebar-hidden');
+          sidebar.classList.add('sidebar-visible');
+          sidebarShow.style.display = 'none';
         });
       </script>
     </div>
