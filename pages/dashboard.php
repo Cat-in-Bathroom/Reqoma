@@ -93,11 +93,13 @@ error_reporting(E_ALL);
     <!-- Main content -->
     <main id="main-content" class="flex-grow-1 px-md-4 py-4">
       <h2>Welcome to the Dashboard</h2>
-      <div id="formula-row" class="row justify-content-center">
-        <!-- Cards will be loaded here -->
-      </div>
-      <div id="loading" class="text-center my-3" style="display:none;">
-        <div class="spinner-border text-primary"></div>
+      <div class="container-fluid">
+        <div id="formula-row" class="row g-4">
+
+        </div>
+        <div id="loading" class="text-center my-3" style="display:none;">
+          <div class="spinner-border text-primary"></div>
+        </div>
       </div>
     </main>
   </div>
@@ -180,17 +182,10 @@ function loadFormulas() {
       } else if (data.formulas.length === 0) {
         endReached = true;
       } else {
-        // Add new cards
+        // Add new cards without replacing existing ones
         data.formulas.forEach(formula => {
           row.insertAdjacentHTML('beforeend', createCard(formula));
         });
-        
-        // Fill last row if needed
-        const remainder = data.formulas.length % 3;
-        if (remainder !== 0) {
-          const emptyCards = Array(3 - remainder).fill(createCard(null)).join('');
-          row.insertAdjacentHTML('beforeend', emptyCards);
-        }
         
         offset += data.formulas.length;
         if (data.formulas.length < limit) endReached = true;
