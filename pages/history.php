@@ -26,41 +26,58 @@ $attempts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include '../includes/header.php';
 ?>
 
-<div class="container mt-5">
-    <h2>Your Formula History</h2>
-    
-    <?php if (empty($attempts)): ?>
-        <div class="alert alert-info">
-            You haven't attempted any formulas yet.
-            <a href="dashboard.php" class="alert-link">Browse formulas</a> to get started!
-        </div>
-    <?php else: ?>
-        <div class="row g-4">
-            <?php foreach ($attempts as $attempt): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($attempt['title']) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($attempt['formula_text']) ?></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="badge <?= $attempt['is_correct'] ? 'bg-success' : 'bg-danger' ?>">
-                                    <?= $attempt['is_correct'] ? 'Correct' : 'Incorrect' ?>
-                                </span>
-                                <small class="text-muted">
-                                    Score: <?= $attempt['score'] ?>
-                                </small>
-                            </div>
-                            <div class="text-muted mt-2">
-                                <small>Attempted: <?= date('M j, Y, g:i a', strtotime($attempt['attempt_date'])) ?></small>
-                            </div>
-                        </div>
+<div class="container-fluid">
+    <div class="d-flex" id="dashboard-flex">
+        <!-- Include the sidebar -->
+        <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
+            <!-- ... sidebar content ... -->
+        </nav>
+
+        <!-- Floating show button -->
+        <button id="sidebarShow" class="btn btn-primary btn-sm sidebar-show-btn" ...>
+            <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Main content -->
+        <main id="main-content" class="flex-grow-1 px-md-4 py-4">
+            <div class="container mt-5">
+                <h2>Your Formula History</h2>
+                
+                <?php if (empty($attempts)): ?>
+                    <div class="alert alert-info">
+                        You haven't attempted any formulas yet.
+                        <a href="dashboard.php" class="alert-link">Browse formulas</a> to get started!
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-    
-    <a href="dashboard.php" class="btn btn-primary mt-3">Back to Dashboard</a>
+                <?php else: ?>
+                    <div class="row g-4">
+                        <?php foreach ($attempts as $attempt): ?>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= htmlspecialchars($attempt['title']) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars($attempt['formula_text']) ?></p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge <?= $attempt['is_correct'] ? 'bg-success' : 'bg-danger' ?>">
+                                                <?= $attempt['is_correct'] ? 'Correct' : 'Incorrect' ?>
+                                            </span>
+                                            <small class="text-muted">
+                                                Score: <?= $attempt['score'] ?>
+                                            </small>
+                                        </div>
+                                        <div class="text-muted mt-2">
+                                            <small>Attempted: <?= date('M j, Y, g:i a', strtotime($attempt['attempt_date'])) ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <a href="dashboard.php" class="btn btn-primary mt-3">Back to Dashboard</a>
+            </div>
+        </main>
+    </div>
 </div>
 
 <?php include '../includes/footer.php'; ?>
