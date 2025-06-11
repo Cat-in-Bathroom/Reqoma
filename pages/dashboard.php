@@ -175,21 +175,24 @@ function loadFormulas() {
     .then(data => {
       let row = document.getElementById('formula-row');
       
-      // Add your real formulas
+      // Add real formulas if any
       data.formulas.forEach(formula => {
         row.insertAdjacentHTML('beforeend', createCard(formula));
       });
       
-      // Always add 9 placeholders (3 rows) after the current content
-      for (let i = 0; i < 9; i++) {
+      // Calculate how many placeholders needed to fill viewport
+      const cardHeight = 200; // Approximate height of a card in pixels
+      const viewportHeight = window.innerHeight;
+      const rowHeight = cardHeight + 32; // card height + margin/padding
+      const rowsNeeded = Math.ceil(viewportHeight / rowHeight);
+      const cardsNeeded = rowsNeeded * 3; // 3 cards per row
+      
+      // Add enough placeholders to fill viewport plus one extra row
+      for (let i = 0; i < cardsNeeded + 3; i++) {
         row.insertAdjacentHTML('beforeend', createCard(null));
       }
       
       offset += data.formulas.length;
-      
-      // Re-enable infinite scroll by making the page taller
-      document.getElementById('main-content').style.minHeight = 
-        (document.getElementById('formula-row').offsetHeight + 1000) + 'px';
     })
     .catch(err => console.error('Error loading formulas:', err))
     .finally(() => {
