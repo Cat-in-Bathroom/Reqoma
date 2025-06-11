@@ -45,20 +45,18 @@ footer {
 .sidebar-header {
   position: sticky;
   top: 0;
-  background: #212529; /* Same as sidebar */
+  background: #212529;
   z-index: 2;
-  padding-bottom: 0.5rem;
-  padding: 1rem;
+  padding: 1rem;             /* Remove padding-bottom, use single padding */
+  margin: -1rem -1rem 0;     /* Compensate for sidebar's p-3 */
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  width: 100%;         /* Add this */
+  width: calc(100% + 2rem); /* Compensate for negative margin */
 }
 
 .sidebar-content {
   overflow-y: auto;
-  background: #212529; /* Add this */
   flex: 1;
-  width: 100%;        /* Add this */
-  height: calc(100% - 56px); /* Adjust based on header height */
+  margin-top: 1rem;        /* Add space after header */
 }
 
 .sidebar-hidden {
