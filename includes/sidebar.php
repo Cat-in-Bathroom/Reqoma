@@ -1,4 +1,3 @@
-<?php
 <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
   <div class="sidebar-header d-flex justify-content-between align-items-center">
     <h4 class="text-white mb-0 fs-5">Dashboard</h4>

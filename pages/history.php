@@ -41,7 +41,6 @@ include '../includes/header.php';
     <div class="d-flex" id="dashboard-flex">
         <!-- Sidebar -->
         <?php include '../includes/sidebar.php'; ?>
-
         <!-- Floating show button -->
         <button id="sidebarShow"
                 class="btn btn-primary btn-sm sidebar-show-btn"
