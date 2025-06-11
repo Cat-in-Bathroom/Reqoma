@@ -137,7 +137,7 @@ function createCard(formula) {
   if (!formula) {
     return `
       <div class="col-md-4 mb-4">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">No Data</h5>
             <p class="card-text">No formula available.</p>
@@ -150,7 +150,7 @@ function createCard(formula) {
   return `
     <div class="col-md-4 mb-4">
       <a href="formula.php?id=${formula.id}" class="card-link">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">${formula.title}</h5>
             <p class="card-text">${formula.formula_text}</p>
@@ -172,24 +172,24 @@ function loadFormulas() {
     .then(res => res.json())
     .then(data => {
       let row = document.getElementById('formula-row');
+      
       if (data.formulas.length === 0 && offset === 0) {
-        // Show placeholder cards only if no formulas exist
-        for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
+        // First load with no data
+        row.innerHTML = Array(3).fill(createCard(null)).join('');
         endReached = true;
       } else if (data.formulas.length === 0) {
         endReached = true;
       } else {
-        // Append new cards to existing ones
+        // Add new cards
         data.formulas.forEach(formula => {
-          row.innerHTML += createCard(formula);
+          row.insertAdjacentHTML('beforeend', createCard(formula));
         });
         
-        // Fill incomplete row with empty cards
+        // Fill last row if needed
         const remainder = data.formulas.length % 3;
         if (remainder !== 0) {
-          for (let i = 0; i < (3 - remainder); i++) {
-            row.innerHTML += createCard(null);
-          }
+          const emptyCards = Array(3 - remainder).fill(createCard(null)).join('');
+          row.insertAdjacentHTML('beforeend', emptyCards);
         }
         
         offset += data.formulas.length;
