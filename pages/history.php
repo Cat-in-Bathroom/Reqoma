@@ -41,16 +41,6 @@ include '../includes/header.php';
     <div class="d-flex" id="dashboard-flex">
         <!-- Sidebar -->
         <?php include '../includes/sidebar.php'; ?>
-        <!-- Floating show button -->
-        <button id="sidebarShow"
-                class="btn btn-primary btn-sm sidebar-show-btn"
-                type="button"
-                aria-label="Show Sidebar"
-                aria-controls="sidebar"
-                aria-expanded="false"
-                style="display:none;">
-            <i class="bi bi-list"></i>
-        </button>
 
         <!-- Main content -->
         <main id="main-content" class="flex-grow-1 px-md-4 py-4">

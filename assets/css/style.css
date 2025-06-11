@@ -11,7 +11,7 @@ footer {
 }
 
 #dashboard-flex {
-  position: relative; /* Make flex container a positioning context */
+  position: relative;
   display: flex;
   min-height: 100vh;
 }
@@ -61,6 +61,13 @@ footer {
   margin-top: 1rem;        /* Add space after header */
 }
 
+/* Sidebar and main content transitions */
+.sidebar,
+#sidebar,
+#main-content {
+  transition: margin-left 0.7s ease, opacity 0.7s ease;
+}
+
 .sidebar-hidden {
   margin-left: -228px; /* 260px (full width) - 32px (strip) */
   opacity: 1;
@@ -73,61 +80,17 @@ footer {
   opacity: 1;
 }
 
-#sidebar {
-  transition: margin-left 0.7s ease, opacity 0.7s ease;
-}
-
-#sidebarHide {
-  position: absolute;
-  left: 228px; /* 260px - 32px */
-  top: 16px;
-  z-index: 1100;
-  background: #212529;
-  border-radius: 0 6px 6px 0;
-  border: none;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-  transition: left 1.7s cubic-bezier(.4,2,.6,1);
-}
-
-.hide-sidebar #sidebarHide {
-  left: 0;
-}
-
-.hide-sidebar .sidebar {
-  background: #23272b;
-  box-shadow: none;
-}
-
+/* Main content margin shifts */
 #main-content {
-  margin-left: 260px; /* Match sidebar width */
-  margin-top: 56px;  /* Match navbar height */
-  transition: margin-left 0.7s ease, opacity 0.7s ease;
+  margin-left: 260px;
+  margin-top: 56px;
 }
 
 .hide-sidebar #main-content {
-  margin-left: 32px; /* Match the sidebar strip width */
+  margin-left: 32px;
 }
 
-.sidebar a {
-  color: white;
-  text-decoration: none;
-}
-
-.sidebar a:hover {
-  background-color: #495057;
-  display: block;
-  padding-left: 10px;
-}
-
-.card-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.card-link:hover {
-  text-decoration: underline;
-}
-
+/* Sidebar show button */
 .sidebar-show-btn {
   position: absolute;
   top: 72px; /* Align with sidebar header */
@@ -155,6 +118,23 @@ footer {
 /* Optional: Hide the button when sidebar is visible */
 .sidebar-visible ~ .sidebar-show-btn {
   display: none !important;
+}
+
+/* Hide button slides with sidebar */
+#sidebarHide {
+  position: absolute;
+  left: 228px; /* 260px - 32px */
+  top: 16px;
+  z-index: 1100;
+  background: #212529;
+  border-radius: 0 6px 6px 0;
+  border: none;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  transition: left 0.7s ease;
+}
+
+.hide-sidebar #sidebarHide {
+  left: 0;
 }
 
 @media (max-width: 991.98px) {
