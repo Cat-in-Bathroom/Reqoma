@@ -27,44 +27,61 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
   <div class="container-fluid">
     <div class="d-flex" id="dashboard-flex">
       <!-- Sidebar -->
-      <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
+      <nav id="sidebar"
+           class="sidebar sidebar-visible p-3 d-flex flex-column"
+           aria-label="Sidebar Navigation">
         <div class="sidebar-header d-flex justify-content-between align-items-center">
-          <h4 class="text-white mb-0">Dashboard</h4>
-          <button id="sidebarHide" class="btn btn-secondary btn-sm" type="button" title="Hide Sidebar" aria-label="Hide Sidebar" aria-controls="sidebar" aria-expanded="true">
+          <h4 class="text-white mb-0 fs-5">Dashboard</h4>
+          <button id="sidebarHide"
+                  class="btn btn-outline-light btn-sm"
+                  type="button"
+                  aria-label="Hide Sidebar"
+                  aria-controls="sidebar"
+                  aria-expanded="true">
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
-        <div class="sidebar-content">
-          <ul class="nav flex-column">
-            <li class="nav-item mb-2">
-              <a class="nav-link" href="profile.php">My Profile</a>
+        <hr class="bg-secondary my-2">
+        <div class="sidebar-content flex-grow-1">
+          <ul class="nav nav-pills flex-column gap-1">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="profile.php">
+                <i class="bi bi-person"></i> My Profile
+              </a>
             </li>
-            <li class="nav-item mb-2">
-              <a class="nav-link" href="settings.php">Setting</a>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="settings.php">
+                <i class="bi bi-gear"></i> Settings
+              </a>
             </li>
-            <li class="nav-item mb-2">
-              <a class="nav-link" href="leaderboard.php">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="leaderboard.php">
                 <i class="bi bi-trophy"></i> Leaderboard
               </a>
             </li>
-            <li class="nav-item mb-2">
-              <a class="nav-link" href="submit_formula.php">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="submit_formula.php">
                 <i class="bi bi-plus-circle"></i> Submit Formula
               </a>
             </li>
             <?php if ($is_moderator): ?>
-            <li class="nav-item mb-2">
-                <a class="nav-link" href="moderate_formulas.php">
-                    <i class="bi bi-shield-check"></i> Moderate Formulas
-                </a>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="moderate_formulas.php">
+                <i class="bi bi-shield-check"></i> Moderate Formulas
+              </a>
             </li>
             <?php endif; ?>
           </ul>
         </div>
       </nav>
-      <!-- Floating show button (hidden by default) -->
-      <button id="sidebarShow" class="btn btn-secondary btn-sm sidebar-show-btn"
-              type="button" aria-label="Show Sidebar" aria-controls="sidebar" aria-expanded="false">
+      <!-- Sidebar Show Button (floating, always accessible) -->
+      <button id="sidebarShow"
+              class="btn btn-primary btn-sm sidebar-show-btn"
+              type="button"
+              aria-label="Show Sidebar"
+              aria-controls="sidebar"
+              aria-expanded="false"
+              style="display:none;">
         <i class="bi bi-list"></i>
       </button>
       <!-- Main content -->
@@ -78,106 +95,28 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </main>
       <script>
-        (function() {
-  // Sidebar toggle logic
-  const dashboardFlex = document.getElementById('dashboard-flex');
-  const sidebar = document.getElementById('sidebar');
-  const sidebarHide = document.getElementById('sidebarHide');
-  const sidebarShow = document.getElementById('sidebarShow');
+const dashboardFlex = document.getElementById('dashboard-flex');
+const sidebar = document.getElementById('sidebar');
+const sidebarHide = document.getElementById('sidebarHide');
+const sidebarShow = document.getElementById('sidebarShow');
 
-  sidebarHide.addEventListener('click', function() {
-    sidebar.classList.remove('sidebar-visible');
-    sidebar.classList.add('sidebar-hidden');
-    sidebarShow.style.display = 'block';
-    dashboardFlex.classList.add('hide-sidebar');
-    sidebarHide.setAttribute('aria-expanded', 'false');
-    sidebarShow.setAttribute('aria-expanded', 'true');
-  });
+sidebarHide.addEventListener('click', function() {
+  sidebar.classList.remove('sidebar-visible');
+  sidebar.classList.add('sidebar-hidden');
+  sidebarShow.style.display = 'block';
+  dashboardFlex.classList.add('hide-sidebar');
+  sidebarHide.setAttribute('aria-expanded', 'false');
+  sidebarShow.setAttribute('aria-expanded', 'true');
+});
 
-  sidebarShow.addEventListener('click', function() {
-    sidebar.classList.remove('sidebar-hidden');
-    sidebar.classList.add('sidebar-visible');
-    sidebarShow.style.display = 'none';
-    dashboardFlex.classList.remove('hide-sidebar');
-    sidebarHide.setAttribute('aria-expanded', 'true');
-    sidebarShow.setAttribute('aria-expanded', 'false');
-  });
-})();
-
-(function() {
-  // Infinite scroll logic
-  let offset = 0;
-  const limit = 9;
-  let loading = false;
-  let endReached = false;
-
-  function createCard(formula) {
-    if (!formula) {
-      return `
-        <div class="col-md-4 mb-4">
-          <div class="card border-secondary text-center">
-            <div class="card-body">
-              <h5 class="card-title text-muted">No Data</h5>
-              <p class="card-text text-muted">No formula available.</p>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-    return `
-      <div class="col-md-4 mb-4">
-        <a href="formula.php?id=${formula.id}" class="card-link w-100">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${formula.title}</h5>
-              <p class="card-text">${formula.formula_text}</p>
-              <p class="card-text"><small class="text-muted">Score: ${formula.score ?? 'N/A'}</small></p>
-            </div>
-          </div>
-        </a>
-      </div>
-    `;
-  }
-
-  function loadFormulas() {
-    if (loading || endReached) return;
-    loading = true;
-    document.getElementById('loading').style.display = 'block';
-    fetch(`fetch_formulas.php?offset=${offset}&limit=${limit}`)
-      .then(res => res.json())
-      .then(data => {
-        let row = document.getElementById('formula-row');
-        if (data.formulas.length === 0 && offset === 0) {
-          // No data at all, show 3 placeholders
-          for (let i = 0; i < 3; i++) row.innerHTML += createCard(null);
-          endReached = true;
-        } else if (data.formulas.length === 0) {
-          endReached = true;
-        } else {
-          // Always fill up to a multiple of 3 for nice rows
-          let cards = data.formulas.map(createCard);
-          while (cards.length % 3 !== 0) cards.push(createCard(null));
-          row.innerHTML += cards.join('');
-          offset += data.formulas.length;
-          if (data.formulas.length < limit) endReached = true;
-        }
-      })
-      .finally(() => {
-        loading = false;
-        document.getElementById('loading').style.display = 'none';
-      });
-  }
-
-  // Initial load
-  loadFormulas();
-
-  // Infinite scroll
-  window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
-      loadFormulas();
-    }
-  });
-})();
+sidebarShow.addEventListener('click', function() {
+  sidebar.classList.remove('sidebar-hidden');
+  sidebar.classList.add('sidebar-visible');
+  sidebarShow.style.display = 'none';
+  dashboardFlex.classList.remove('hide-sidebar');
+  sidebarHide.setAttribute('aria-expanded', 'true');
+  sidebarShow.setAttribute('aria-expanded', 'false');
+});
       </script>
     </div>
   </div>
