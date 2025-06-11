@@ -33,28 +33,28 @@ include '../includes/header.php';
 ?>
 
 <div class="container-fluid">
-    <div class="d-flex" id="dashboard-flex">
+    <div class="d-flex min-vh-100" id="dashboard-flex">
         <!-- Main content -->
-        <main id="main-content" class="flex-grow-1 px-md-4 py-4">
-            <div class="container" style="max-width: 1000px;">
+        <main id="main-content" class="flex-grow-1 px-md-4 py-4 d-flex align-items-center justify-content-center">
+            <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-4">
+                    <div class="col-md-6"> <!-- Changed from col-md-4 to col-md-6 for wider form -->
                         <div class="card shadow-lg">
-                            <div class="card-body">
+                            <div class="card-body p-5"> <!-- Added more padding with p-5 -->
                                 <h3 class="card-title text-center mb-4">Login</h3>
                                 <?php if (!empty($error)): ?>
                                     <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
                                 <?php endif; ?>
                                 <form method="POST" action="">
-                                    <div class="mb-3">
+                                    <div class="mb-4"> <!-- Changed mb-3 to mb-4 for more spacing -->
                                         <label class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control" required>
+                                        <input type="text" name="username" class="form-control form-control-lg" required>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-4">
                                         <label class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" required>
+                                        <input type="password" name="password" class="form-control form-control-lg" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                    <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
                                 </form>
                             </div>
                         </div>
