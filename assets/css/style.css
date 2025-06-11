@@ -17,7 +17,7 @@ footer {
 
 .sidebar {
   position: fixed;
-  top: 56px; /* Match your navbar height */
+  top: 56px;
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
@@ -27,14 +27,8 @@ footer {
   transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
   border-right: 1px solid #343a40;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.sidebar-content {
-  overflow-y: auto;
-  flex-grow: 1;
 }
 
 .sidebar-header {
@@ -43,6 +37,11 @@ footer {
   background: #212529;
   z-index: 2;
   padding-bottom: 0.5rem;
+}
+
+.sidebar-content {
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .sidebar-hidden {
