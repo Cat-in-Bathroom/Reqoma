@@ -20,7 +20,7 @@ footer {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 56px; /* Match navbar height */
+  top: 56px;
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
@@ -51,28 +51,19 @@ footer {
 .sidebar .nav-link {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  height: 48px;
   color: #fff;
-  text-decoration: none;
-  transition: background 0.2s;
   width: 100%;
   box-sizing: border-box;
-  height: 48px;
+  transition: background 0.2s;
 }
+.sidebar .nav-link i { margin-right: 0.5rem; }
 .sidebar .nav-link.active,
-.sidebar .nav-link:focus,
-.sidebar .nav-link:hover {
-  background: #495057;
-  color: #fff;
-}
+.sidebar .nav-link:hover { background: #495057; color: #fff; }
 
 /* Sidebar hide/show logic */
-.sidebar-visible {
-  margin-left: 0;
-}
-.sidebar-hidden {
-  margin-left: -212px; /* 260px - 48px = 48px strip */
-}
+.sidebar-visible { margin-left: 0; }
+.sidebar-hidden { margin-left: -212px; } /* 48px strip */
 
 /* Main content margin shifts */
 #main-content {
@@ -176,25 +167,19 @@ footer {
   overflow: visible;
 }
 
-.sidebar-visible {
-  margin-left: 0;
-}
+.sidebar-visible { margin-left: 0; }
 
-.sidebar-hidden {
-  margin-left: -212px; /* 260px - 48px = 48px strip */
-}
+.sidebar-hidden { margin-left: -212px; } /* 48px strip */
 
 /* Nav links: normal */
 .sidebar .nav-link {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  height: 48px;
   color: #fff;
-  text-decoration: none;
-  transition: background 0.2s;
   width: 100%;
   box-sizing: border-box;
-  height: 48px;
+  transition: background 0.2s;
 }
 
 /* Nav links: collapsed */
@@ -205,22 +190,13 @@ footer {
   justify-content: center;
   padding: 0;
   text-align: center;
-  overflow: visible;
   background: none;
-  height: 48px;
-  line-height: 48px;
 }
-
-/* Only show icons in collapsed state */
 .sidebar.sidebar-hidden .nav-link i {
   font-size: 1.5rem;
   margin-right: 0;
-  color: #fff !important;
-  opacity: 1 !important;
-  visibility: visible !important;
   display: inline-block !important;
 }
-
 .sidebar.sidebar-hidden .nav-link .sidebar-label {
   display: none !important;
 }

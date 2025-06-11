@@ -1,9 +1,5 @@
 <nav id="sidebar" class="sidebar sidebar-visible p-3" role="navigation" aria-label="Sidebar Navigation">
-  <div class="sidebar-header d-flex align-items-center">
-    <h4 class="text-white mb-0 fs-5">Dashboard</h4>
-  </div>
-  <hr class="bg-secondary my-2">
-  <div class="sidebar-content">
+  <div class="sidebar-header">
     <ul class="nav nav-pills flex-column gap-1">
       <!-- Toggle button as a nav item -->
       <li class="nav-item">
@@ -18,6 +14,11 @@
           <span class="sidebar-label ms-2">Collapse</span>
         </button>
       </li>
+    </ul>
+  </div>
+  <hr class="bg-secondary my-2">
+  <div class="sidebar-content">
+    <ul class="nav nav-pills flex-column gap-1">
       <li class="nav-item">
         <a class="nav-link text-white <?php if(basename($_SERVER['PHP_SELF']) === 'dashboard.php') echo 'active'; ?>" href="dashboard.php">
           <i class="bi bi-house"></i> <span class="sidebar-label">Home</span>
