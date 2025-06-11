@@ -180,19 +180,23 @@ function loadFormulas() {
         row.insertAdjacentHTML('beforeend', createCard(formula));
       });
       
-      // Calculate how many placeholders needed to fill viewport
+      // Calculate how many placeholders needed to fill viewport plus extra for scrolling
       const cardHeight = 200; // Approximate height of a card in pixels
       const viewportHeight = window.innerHeight;
       const rowHeight = cardHeight + 32; // card height + margin/padding
-      const rowsNeeded = Math.ceil(viewportHeight / rowHeight);
+      const rowsNeeded = Math.ceil((viewportHeight * 1.5) / rowHeight); // 150% of viewport
       const cardsNeeded = rowsNeeded * 3; // 3 cards per row
       
-      // Add enough placeholders to fill viewport plus one extra row
-      for (let i = 0; i < cardsNeeded + 3; i++) {
+      // Add enough placeholders to ensure scrolling is possible
+      for (let i = 0; i < cardsNeeded; i++) {
         row.insertAdjacentHTML('beforeend', createCard(null));
       }
       
       offset += data.formulas.length;
+
+      // Make sure we have enough height for scrolling
+      document.getElementById('main-content').style.minHeight = 
+        (viewportHeight * 1.5) + 'px';
     })
     .catch(err => console.error('Error loading formulas:', err))
     .finally(() => {
