@@ -165,7 +165,7 @@ function createCard(formula) {
 }
 
 function loadFormulas() {
-  if (loading) return; // Remove endReached check to allow infinite loading
+  if (loading) return;
   
   loading = true;
   document.getElementById('loading').style.display = 'block';
@@ -175,17 +175,21 @@ function loadFormulas() {
     .then(data => {
       let row = document.getElementById('formula-row');
       
-      // Always show the real formulas first
+      // Add your real formulas
       data.formulas.forEach(formula => {
         row.insertAdjacentHTML('beforeend', createCard(formula));
       });
       
-      // Then add a row of placeholders, regardless of data
-      for (let i = 0; i < 3; i++) {
+      // Always add 9 placeholders (3 rows) after the current content
+      for (let i = 0; i < 9; i++) {
         row.insertAdjacentHTML('beforeend', createCard(null));
       }
       
       offset += data.formulas.length;
+      
+      // Re-enable infinite scroll by making the page taller
+      document.getElementById('main-content').style.minHeight = 
+        (document.getElementById('formula-row').offsetHeight + 1000) + 'px';
     })
     .catch(err => console.error('Error loading formulas:', err))
     .finally(() => {
