@@ -68,6 +68,11 @@ error_reporting(E_ALL);
               <i class="bi bi-plus-circle"></i> Submit Formula
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="history.php">
+                <i class="bi bi-clock-history"></i> History
+            </a>
+          </li>
           <?php if ($is_moderator): ?>
           <li class="nav-item">
             <a class="nav-link text-white" href="moderate_formulas.php">
