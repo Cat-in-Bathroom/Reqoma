@@ -15,10 +15,21 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $formulas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Return both the formulas and the total count
+// Debug info
+error_log("Offset: " . $offset);
+error_log("Limit: " . $limit);
+error_log("Total formulas: " . $total_formulas);
+error_log("Formulas found: " . count($formulas));
+
 header('Content-Type: application/json');
 echo json_encode([
     'formulas' => $formulas,
     'total' => $total_formulas,
-    'hasMore' => ($offset + count($formulas)) < $total_formulas
+    'hasMore' => ($offset + count($formulas)) < $total_formulas,
+    'debug' => [
+        'offset' => $offset,
+        'limit' => $limit,
+        'total' => $total_formulas,
+        'count' => count($formulas)
+    ]
 ]);
