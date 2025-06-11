@@ -102,7 +102,7 @@ footer {
 }
 
 .hide-sidebar #main-content {
-  margin-left: 0;
+  margin-left: 32px; /* Match the sidebar strip width */
 }
 
 .sidebar a {
