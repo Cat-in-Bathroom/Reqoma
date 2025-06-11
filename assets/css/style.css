@@ -102,9 +102,9 @@ footer {
 
 .sidebar-show-btn {
   position: fixed;
-  top: 1rem;
+  top: 70px; /* Move below navbar */
   left: 1rem;
-  z-index: 2000;
+  z-index: 1051;
   display: none;
 }
 
