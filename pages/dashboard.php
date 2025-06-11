@@ -176,10 +176,15 @@ function loadFormulas() {
       let row = document.getElementById('formula-row');
       
       if (data.formulas.length === 0 && offset === 0) {
-        // First load with no data
-        row.innerHTML = Array(3).fill(createCard(null)).join('');
-        endReached = true;
+        // First load with no data - show unlimited placeholders in groups of 3
+        for (let i = 0; i < 12; i++) { // Show 4 rows of placeholders initially
+          row.insertAdjacentHTML('beforeend', createCard(null));
+        }
       } else if (data.formulas.length === 0) {
+        // No more data - add one more row of placeholders
+        for (let i = 0; i < 3; i++) {
+          row.insertAdjacentHTML('beforeend', createCard(null));
+        }
         endReached = true;
       } else {
         // Add new cards without replacing existing ones
@@ -188,7 +193,20 @@ function loadFormulas() {
         });
         
         offset += data.formulas.length;
-        if (data.formulas.length < limit) endReached = true;
+        if (data.formulas.length < limit) {
+          // Fill the rest of the current row with placeholders
+          const remainder = data.formulas.length % 3;
+          if (remainder !== 0) {
+            for (let i = 0; i < (3 - remainder); i++) {
+              row.insertAdjacentHTML('beforeend', createCard(null));
+            }
+          }
+          // Add one more row of placeholders
+          for (let i = 0; i < 3; i++) {
+            row.insertAdjacentHTML('beforeend', createCard(null));
+          }
+          endReached = true;
+        }
       }
     })
     .catch(err => console.error('Error loading formulas:', err))
