@@ -207,6 +207,8 @@ footer {
   text-align: center;
   overflow: visible;
   background: none;
+  height: 48px;
+  line-height: 48px;
 }
 
 /* Only show icons in collapsed state */
@@ -216,16 +218,11 @@ footer {
   color: #fff !important;
   opacity: 1 !important;
   visibility: visible !important;
+  display: inline-block !important;
 }
 
 .sidebar.sidebar-hidden .nav-link .sidebar-label {
   display: none !important;
-}
-
-/* Make sure the clickable area fills the strip */
-.sidebar.sidebar-hidden .nav-link {
-  height: 48px;
-  line-height: 48px;
 }
 
 /* Highlight on hover/click */
