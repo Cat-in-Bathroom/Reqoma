@@ -17,7 +17,7 @@ footer {
 
 .sidebar {
   position: fixed;
-  top: 56px;
+  top: 56px; /* Match navbar height */
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
@@ -27,8 +27,6 @@ footer {
   transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
   border-right: 1px solid #343a40;
-  display: flex;
-  flex-direction: column;
 }
 
 .sidebar-header {
@@ -41,7 +39,7 @@ footer {
 
 .sidebar-content {
   overflow-y: auto;
-  flex-grow: 1;
+  height: calc(100% - 56px); /* Adjust based on header height */
 }
 
 .sidebar-hidden {
@@ -56,9 +54,8 @@ footer {
 }
 
 #main-content {
-  flex-grow: 1;
-  margin-left: 260px;
-  margin-top: 56px;
+  margin-left: 260px; /* Match sidebar width */
+  margin-top: 56px;  /* Match navbar height */
   transition: margin-left 0.3s cubic-bezier(.4,2,.6,1);
 }
 
