@@ -34,7 +34,7 @@ if ($isLoggedIn) {
 
 <?php $base_url = '/Reqoma/pages/'; ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?= $isLoggedIn ? $base_url . 'dashboard.php' : $base_url . 'index.php' ?>">Reqoma</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

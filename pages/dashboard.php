@@ -39,12 +39,18 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
       min-height: 100vh;
     }
     .sidebar {
+      position: fixed;
+      top: 56px; /* Height of the navbar (default Bootstrap is 56px) */
+      left: 0;
       width: 260px;
       min-width: 200px;
       max-width: 300px;
+      height: calc(100vh - 56px);
       transition: margin-left 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s;
       background-color: #343a40;
       color: white;
+      z-index: 1050;
+      overflow-y: auto;
     }
     .sidebar-hidden {
       margin-left: -260px;
@@ -57,7 +63,12 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     #main-content {
       flex-grow: 1;
+      margin-left: 260px; /* Same as sidebar width */
+      margin-top: 56px;   /* Same as navbar height */
       transition: margin-left 0.3s cubic-bezier(.4,2,.6,1);
+    }
+    .sidebar-hidden ~ #main-content {
+      margin-left: 0;
     }
     .sidebar a {
       color: white;
@@ -88,13 +99,13 @@ $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
         min-width: 0;
         max-width: 100vw;
         position: fixed;
-        top: 0;
+        top: 56px;
         left: 0;
-        height: 100vh;
+        height: calc(100vh - 56px);
         z-index: 1050;
       }
       #main-content {
-        padding-left: 0 !important;
+        margin-left: 0 !important;
       }
     }
   </style>
