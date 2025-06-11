@@ -101,7 +101,7 @@ error_reporting(E_ALL);
         <h2>Welcome to the Dashboard</h2>
         <div id="formula-row" class="row g-4">
           <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card formula-card h-100">
               <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
                 <h5 class="card-title">No Data</h5>
                 <p class="card-text">No formula available.</p>
@@ -151,7 +151,7 @@ function createCard(formula) {
   if (!formula) {
     return `
       <div class="col-md-4 mb-4">
-        <div class="card h-100">
+        <div class="card formula-card h-100">
           <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
             <h5 class="card-title">No Data</h5>
             <p class="card-text">No formula available.</p>
@@ -162,18 +162,18 @@ function createCard(formula) {
   }
 
   return `
-    <div class="col-md-4 mb-4">
-      <a href="formula.php?id=${formula.id}" class="card-link">
-        <div class="card h-100">
-          <div class="card-body" style="height: 200px;"> <!-- Added fixed height -->
-            <h5 class="card-title">${formula.title}</h5>
-            <p class="card-text">${formula.formula_text}</p>
-            <p class="card-text"><small class="text-muted">Score: ${formula.score}</small></p>
-          </div>
+  <div class="col-md-4 mb-4">
+    <a href="formula.php?id=${formula.id}" class="card-link">
+      <div class="card formula-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">${formula.title}</h5>
+          <p class="card-text">${formula.formula_text}</p>
+          <p class="card-text"><small class="text-muted">Score: ${formula.score}</small></p>
         </div>
-      </a>
-    </div>
-  `;
+      </div>
+    </a>
+  </div>
+`;
 }
 
 function loadFormulas() {

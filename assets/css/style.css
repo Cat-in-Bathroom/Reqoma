@@ -151,7 +151,7 @@ footer {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.card-body {
+.formula-card .card-body {
   height: 200px;
   overflow: hidden;
 }

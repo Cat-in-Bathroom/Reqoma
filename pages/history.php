@@ -116,7 +116,7 @@ include '../includes/header.php';
                     <div id="formula-row" class="row g-4">
                         <?php foreach ($attempts as $attempt): ?>
                             <div class="col-md-4 mb-4">
-                                <div class="card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
+                                <div class="card formula-card h-100 <?= $attempt['is_correct'] ? 'border-success' : 'border-danger' ?>">
                                     <div class="card-body" style="height: 200px;">
                                         <h5 class="card-title"><?= htmlspecialchars($attempt['title']) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($attempt['formula_text']) ?></p>
