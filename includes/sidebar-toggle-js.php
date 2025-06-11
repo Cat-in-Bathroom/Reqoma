@@ -1,3 +1,4 @@
+<?php
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const dashboardFlex = document.getElementById('dashboard-flex');
