@@ -37,12 +37,24 @@ if ($isLoggedIn) {
 <nav class="navbar navbar-expand navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?= $isLoggedIn ? $base_url . 'dashboard.php' : $base_url . 'index.php' ?>">Reqoma</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            
+            <!-- Search Bar -->
+            <form class="d-flex me-auto ms-3" role="search" action="<?= $base_url ?>search.php" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name="q">
+                <button class="btn btn-outline-light" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <!-- Right Side Links -->
             <ul class="navbar-nav">
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item d-flex align-items-center">
@@ -51,11 +63,6 @@ if ($isLoggedIn) {
                                 <img src="<?= htmlspecialchars($profile_picture) ?>" alt="Profile Picture" class="rounded-circle me-2" style="width:32px;height:32px;object-fit:cover;">
                             <?php endif; ?>
                             <?= htmlspecialchars($_SESSION['username']) ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $base_url ?>leaderboard.php">
-                            <i class="bi bi-trophy"></i> Leaderboard
                         </a>
                     </li>
                     <li class="nav-item">
