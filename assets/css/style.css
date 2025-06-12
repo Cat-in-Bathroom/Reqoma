@@ -17,20 +17,55 @@ footer {
   min-height: 100vh;
 }
 
-/* Sidebar base */
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 64px;
   left: 0;
-  width: 260px;
+  width: 260px; /* Keep full width */
   height: calc(100vh - 64px);
   background: #212529;
   z-index: 1050;
   transition: margin-left 0.5s cubic-bezier(.4,2,.6,1);
   display: flex;
   flex-direction: column;
+  overflow-x: visible; /* Allow icons to be fully shown */
 }
 
+/* Collapsed state */
+.sidebar.sidebar-hidden {
+  margin-left: -212px; /* Hide labels, leave 48px visible */
+  overflow-x: visible; /* Ensure icons not clipped */
+  padding-left: 0;  /* Remove padding for clean icon alignment */
+  padding-right: 0;
+}
+
+/* Nav links when collapsed */
+.sidebar.sidebar-hidden .nav-link {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  text-align: center !important;
+  overflow: visible !important; /* Make sure icons are fully visible */
+  background: none !important;
+  height: 48px !important;
+  line-height: 48px !important;
+}
+
+/* Icon styles */
+.sidebar.sidebar-hidden .nav-link i {
+  font-size: 1.5rem !important;
+  margin-right: 0 !important;
+  display: inline-block !important;
+  color: #fff;
+}
+
+/* Hide labels */
+.sidebar.sidebar-hidden .nav-link .sidebar-label {
+  display: none !important;
+}
 .sidebar-visible {
   margin-left: 0;
 }
