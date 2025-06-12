@@ -1,4 +1,5 @@
 body {
+  padding-top: 64px; /* Adjust if navbar height is different */
   font-family: 'Segoe UI', sans-serif;
   background-color: #8aa1c2;
   min-height: 100vh;
