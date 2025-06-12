@@ -86,12 +86,6 @@ footer {
   transform: rotate(180deg);
 }
 
-/* Main content margin shifts */
-#main-content {
-  margin-left: 260px;
-  margin-top: 56px;
-  transition: margin-left 0.5s cubic-bezier(.4,2,.6,1);
-}
 .hide-sidebar #main-content {
   margin-left: 48px;
 }

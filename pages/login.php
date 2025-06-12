@@ -31,7 +31,7 @@ include '../includes/header.php';
 ?>
 
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
-  <main id="main-content">
+  <main>
     <form method="POST" action=""
           style="background:#fff; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.08); padding:2.5rem;">
       <h3 class="text-center mb-4">Login</h3>
