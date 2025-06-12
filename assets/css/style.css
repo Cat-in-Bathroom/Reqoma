@@ -21,7 +21,7 @@ footer {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 56px;
+  padding-top: 64px;
   left: 0;
   width: 260px;
   height: calc(100vh - 56px);
