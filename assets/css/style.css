@@ -21,10 +21,10 @@ footer {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  padding-top: 64px;
+  top: 64px;
   left: 0;
   width: 260px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 64px);
   background: #212529;
   z-index: 1050;
   transition: margin-left 0.5s cubic-bezier(.4,2,.6,1);
@@ -32,6 +32,7 @@ footer {
   display: flex;
   flex-direction: column;
   padding: 0;
+  padding-top: 0;
 }
 
 .sidebar-visible { margin-left: 0; }
@@ -123,19 +124,6 @@ footer {
 #main-content .container {
   max-width: 1000px;
   margin: 0 auto;
-}
-
-/* Sidebar collapsed: only show a 48px strip with icons centered and clickable */
-.sidebar {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  width: 260px;
-  height: calc(100vh - 56px);
-  background: #212529;
-  z-index: 1050;
-  transition: margin-left 0.7s ease;
-  overflow: visible;
 }
 
 .sidebar-visible { margin-left: 0; }
