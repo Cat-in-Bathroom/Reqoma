@@ -13,6 +13,16 @@ if ($isLoggedIn) {
     $stmt->execute([':id' => $_SESSION['user_id']]);
     $profile_picture = $stmt->fetchColumn();
 }
+
+$is_moderator = false;
+if ($_SESSION['user_id']) {
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $role = $stmt->fetchColumn();
+    if ($role === 'moderator' || $role === 'admin') {
+        $is_moderator = true;
+    }
+}
 ?>
 
 <!DOCTYPE html>

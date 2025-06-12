@@ -6,16 +6,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     exit;
 }
 
-$is_moderator = false;
-if ($_SESSION['user_id']) {
-    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :id");
-    $stmt->execute([':id' => $_SESSION['user_id']]);
-    $role = $stmt->fetchColumn();
-    if ($role === 'moderator' || $role === 'admin') {
-        $is_moderator = true;
-    }
-}
-
 // Fetch formulas (only approved/public ones)
 $formulas_stmt = $pdo->query("SELECT id, title, formula_text, score FROM formulas WHERE status = 'approved' ORDER BY created_at DESC");
 $formulas = $formulas_stmt->fetchAll(PDO::FETCH_ASSOC);
