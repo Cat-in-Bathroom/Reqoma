@@ -34,28 +34,34 @@ if ($isLoggedIn) {
 
 <body>
 
-<nav class="navbar navbar-expand navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
+
+        <!-- Brand -->
         <a class="navbar-brand" href="<?= $isLoggedIn ? $base_url . 'dashboard.php' : $base_url . 'index.php' ?>">Reqoma</a>
 
+        <!-- Toggler for mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            
-            <!-- Search Bar -->
-            <form class="d-flex me-auto ms-3" role="search" action="<?= $base_url ?>search.php" method="GET">
-                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name="q">
-                <button class="btn btn-outline-light" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
+        <!-- Full Navbar Collapse -->
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-            <!-- Right Side Links -->
-            <ul class="navbar-nav">
+            <!-- Centered and Large Search Bar -->
+            <div class="mx-auto" style="width: 50%;">
+                <form class="d-flex" role="search" action="<?= $base_url ?>search.php" method="GET">
+                    <input class="form-control form-control-lg me-2" type="search" name="q" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-light btn-lg" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right-side nav items -->
+            <ul class="navbar-nav ms-auto">
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item d-flex align-items-center">
                         <a class="nav-link d-flex align-items-center" href="<?= $base_url ?>profile.php">
@@ -82,4 +88,5 @@ if ($isLoggedIn) {
         </div>
     </div>
 </nav>
+
 
