@@ -36,8 +36,9 @@ body {
 /* Toggle button outside sidebar */
 button#sidebarToggle {
   position: fixed;
-  top: 1rem;
-  left: 250px; /* aligned to sidebar's right edge */
+  top: 64px;
+  /* Use CSS variables with calc() for dynamic position */
+  left: calc(var(--sidebar-width) - 30px);
   z-index: 1100;
   background: #222;
   border: none;
@@ -49,12 +50,17 @@ button#sidebarToggle {
   align-items: center;
   justify-content: center;
   transition: left 0.3s ease;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
-nav.sidebar.collapsed ~ button#sidebarToggle {
-  left: 60px;
+
+.sidebar.collapsed ~ button#sidebarToggle {
+  left: calc(var(--sidebar-width-collapsed) - 30px);
 }
+
 button#sidebarToggle:focus {
   outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 /* Logo */
