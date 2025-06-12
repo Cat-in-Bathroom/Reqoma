@@ -1,24 +1,20 @@
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const dashboardFlex = document.getElementById('dashboard-flex');
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.querySelector('nav.sidebar');
+  const toggleBtn = document.getElementById('sidebarToggle');
+  const toggleIcon = toggleBtn.querySelector('i');
 
-  if (sidebarToggle && dashboardFlex && sidebar) {
-    sidebarToggle.addEventListener('click', function() {
-      const isVisible = sidebar.classList.contains('sidebar-visible');
-      if (isVisible) {
-        sidebar.classList.remove('sidebar-visible');
-        sidebar.classList.add('sidebar-hidden');
-        dashboardFlex.classList.add('hide-sidebar');
-        sidebarToggle.setAttribute('aria-expanded', 'false');
-      } else {
-        sidebar.classList.remove('sidebar-hidden');
-        sidebar.classList.add('sidebar-visible');
-        dashboardFlex.classList.remove('hide-sidebar');
-        sidebarToggle.setAttribute('aria-expanded', 'true');
-      }
-    });
-  }
-});
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+    const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    toggleBtn.setAttribute('aria-expanded', String(!expanded));
+
+    // Change icon direction
+    if (sidebar.classList.contains('collapsed')) {
+      toggleIcon.classList.remove('fa-chevron-left');
+      toggleIcon.classList.add('fa-chevron-right');
+    } else {
+      toggleIcon.classList.remove('fa-chevron-right');
+      toggleIcon.classList.add('fa-chevron-left');
+    }
+  });
 </script>

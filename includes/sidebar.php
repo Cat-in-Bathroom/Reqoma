@@ -2,17 +2,6 @@
   <ul class="nav flex-column mb-0">
     <!-- Toggle button as a nav item -->
     <li class="nav-item">
-      <button id="sidebarToggle"
-              class="nav-link btn btn-link text-white d-flex justify-content-center align-items-center"
-              type="button"
-              aria-label="Toggle Sidebar"
-              aria-controls="sidebar"
-              aria-expanded="true">
-        <i class="bi bi-chevron-left"></i>
-        <span class="sidebar-label ms-2">Collapse</span>
-      </button>
-    </li>
-    <li class="nav-item">
       <a class="nav-link text-white <?php if(basename($_SERVER['PHP_SELF']) === 'dashboard.php') echo 'active'; ?>" href="dashboard.php" title="Home">
         <i class="bi bi-house"></i> <span class="sidebar-label">Home</span>
       </a>
@@ -51,3 +40,7 @@
     <?php endif; ?>
   </ul>
 </nav>
+
+<button id="sidebarToggle" aria-label="Toggle Sidebar" aria-expanded="true" aria-controls="sidebar">
+  <i class="fas fa-chevron-left"></i>
+</button>
