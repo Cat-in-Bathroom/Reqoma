@@ -63,8 +63,8 @@ if ($_SESSION['user_id']) {
             <!-- Centered and Large Search Bar -->
             <div class="mx-auto" style="width: 50%;">
                 <form class="d-flex" role="search" action="<?= $base_url ?>search.php" method="GET">
-                    <input class="form-control form-control me-2" type="search" name="q" placeholder="Search..." aria-label="Search">
-                    <button class="btn btn-outline-light btn-lg" type="submit">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
