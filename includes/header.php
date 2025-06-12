@@ -73,3 +73,5 @@ if ($isLoggedIn) {
         </div>
     </div>
 </nav>
+
+<body>
